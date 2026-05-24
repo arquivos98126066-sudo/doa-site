@@ -3,1040 +3,1532 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>V4 CLESS — Automação IA, Vendas e Tráfego Pago</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600;700;900&family=Barlow+Condensed:wght@600;700;900&display=swap" rel="stylesheet">display=swap" rel="stylesheet">
+<title>SoftDelivery — Sistema de Gestão Personalizado</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;700;900&family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
+/* ===================== RESET & BASE ===================== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; }
+body {
+  background: #080808;
+  color: #f0f0f0;
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  line-height: 1.6;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+img, svg { display: block; max-width: 100%; }
+a { text-decoration: none; color: inherit; }
+button { cursor: pointer; border: none; background: none; font-family: inherit; }
+input { font-family: inherit; }
+
+/* ===================== VARIABLES ===================== */
 :root {
-  --red: #0066cc;
-  --red-dark: #004499;
-  --red-glow: rgba(0,102,204,0.18);
   --bg: #080808;
-  --bg2: #0f0f0f;
-  --bg3: #161616;
-  --bg4: #1e1e1e;
-  --border: rgba(255,255,255,0.07);
+  --bg-card: #161616;
+  --bg-alt: #0f0f0f;
   --text: #f0f0f0;
-  --muted: #777;
-  --h: 70px;
+  --text-secondary: #777777;
+  --border: rgba(255,255,255,0.07);
+  --border-hover: rgba(255,255,255,0.15);
+  --accent: #ffffff;
+  --green: #3ddc84;
+  --green-dark: rgba(61,220,132,0.12);
+  --red: #f87171;
+  --red-dark: rgba(248,113,113,0.12);
 }
-*{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;line-height:1.6}
 
-/* ─── HEADER ─── */
-header{position:fixed;top:0;left:0;right:0;height:var(--h);background:rgba(8,8,8,0.97);backdrop-filter:blur(10px);border-bottom:1px solid rgba(0,102,204,0.4);z-index:999;display:flex;align-items:center;padding:0 24px;gap:20px}
-.logo{font-family:'Inter';font-size:26px;font-weight:600;letter-spacing:2px;white-space:nowrap}
-.logo span{color:var(--red)}
-nav{display:flex;gap:4px;margin-left:auto}
-nav a{color:var(--muted);text-decoration:none;font-size:13px;font-weight:600;letter-spacing:1px;text-transform:uppercase;padding:8px 14px;border-radius:3px;transition:all .2s;cursor:pointer}
-nav a:hover,nav a.active{color:var(--text);background:var(--red-glow)}
-nav a.active{color:var(--red)}
-.ham{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;margin-left:auto;padding:8px}
-.ham span{width:24px;height:2px;background:var(--text);transition:.3s;display:block}
-.ham.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
-.ham.open span:nth-child(2){opacity:0}
-.ham.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
-.mob-nav{display:none;position:fixed;top:var(--h);left:0;right:0;background:#0a0a0a;border-bottom:2px solid var(--red);z-index:998;flex-direction:column;padding:10px 0}
-.mob-nav.open{display:flex}
-.mob-nav a{color:var(--muted);text-decoration:none;padding:14px 24px;font-size:14px;font-weight:600;letter-spacing:1px;text-transform:uppercase;border-bottom:1px solid var(--border);cursor:pointer;transition:color .2s}
-.mob-nav a:hover,.mob-nav a.active{color:var(--red)}
+/* ===================== TYPOGRAPHY ===================== */
+.font-barlow { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; }
+.font-bebas { font-family: 'Bebas Neue', sans-serif; letter-spacing: 2px; }
 
-/* ─── PAGES ─── */
-.page{display:none;padding-top:var(--h)}
-.page.active{display:block}
-
-/* ─── UTILITIES ─── */
-.wrap{max-width:1140px;margin:0 auto;padding:0 24px;overflow-x:hidden}
-.sec{padding:80px 0}
-.sec-sm{padding:50px 0}
-.bg2{background:var(--bg2)}
-.bg3{background:var(--bg3)}
-.tag{display:inline-block;color:var(--red);font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;border:1px solid var(--red);padding:5px 14px;border-radius:2px;margin-bottom:20px}
-.sec-title{font-family:'Inter';font-size:clamp(36px,6vw,58px);letter-spacing:2px;line-height:1.05;margin-bottom:16px}
-.sec-sub{font-size:clamp(15px,2vw,18px);color:var(--muted);max-width:620px;line-height:1.7}
-.center{text-align:center}
-.center .sec-sub{margin:0 auto}
-.red{color:var(--red)}
-
-/* ─── BUTTONS ─── */
-.btn{display:inline-block;font-family:'Inter';font-size:15px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:14px 32px;border-radius:3px;text-decoration:none;cursor:pointer;transition:all .2s;border:none}
-.btn-red{background:var(--red);color:#fff}
-.btn-red:hover{background:var(--red-dark);transform:translateY(-2px)}
-.btn-out{background:transparent;color:var(--red);border:2px solid var(--red)}
-.btn-out:hover{background:var(--red);color:#fff;transform:translateY(-2px)}
-.btn-white{background:#fff;color:#111}
-.btn-white:hover{background:#eee;transform:translateY(-2px)}
-.btns{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
-
-/* ─── HERO HOME ─── */
-.hero{min-height:calc(100vh - var(--h));display:flex;align-items:center;position:relative;overflow:hidden}
-.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 60% at 70% 50%,rgba(224,20,31,0.08) 0%,transparent 70%)}
-.hero-grid{position:absolute;inset:0;background-image:linear-gradient(var(--border) 1px,transparent 1px),linear-gradient(90deg,var(--border) 1px,transparent 1px);background-size:60px 60px;opacity:.4}
-.hero-content{position:relative;z-index:1;padding:60px 0}
-.hero-tag{color:var(--red);font-size:12px;font-weight:700;letter-spacing:4px;text-transform:uppercase;margin-bottom:16px}
-.hero h1{font-family:'Inter';font-size:clamp(16px,7vw,30px);line-height:1.30;letter-spacing:0;margin-bottom:24px;white-space:normal}
-.hero h1 span{color:var(--red)}
-.hero p{font-size:clamp(15px,2vw,19px);color:var(--muted);max-width:580px;line-height:1.75;margin-bottom:32px}
-.hero-stats{display:flex;gap:40px;margin-top:48px;flex-wrap:wrap}
-.stat{border-left:3px solid var(--red);padding-left:16px}
-.stat-num{font-family:'Inter';font-size:36px;color:var(--red);line-height:1}
-.stat-label{font-size:12px;color:var(--muted);letter-spacing:1px;text-transform:uppercase}
-
-/* ─── PROBLEM CARDS ─── */
-.prob-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:48px}
-.prob-card{background:var(--bg3);border:1px solid var(--border);border-top:3px solid var(--red);padding:28px;border-radius:4px;transition:transform .2s}
-.prob-card:hover{transform:translateY(-4px)}
-.prob-icon{font-size:32px;margin-bottom:16px}
-.prob-card h3{font-family:'Inter';font-size:20px;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:10px}
-.prob-card p{font-size:14px;color:var(--muted);line-height:1.7}
-
-/* ─── METHOD CARDS ─── */
-.method-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:48px}
-.method-card{background:var(--bg3);border:1px solid var(--border);padding:36px 28px;border-radius:4px;transition:all .25s;cursor:pointer;position:relative;overflow:hidden}
-.method-card::before{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--red);transform:scaleX(0);transition:transform .3s}
-.method-card:hover{border-color:rgba(0,102,204,0.4);transform:translateY(-4px)}
-.method-card:hover::before{transform:scaleX(1)}
-.method-num{font-family:'Inter';font-size:72px;color:rgba(0,102,204,0.12);line-height:1;margin-bottom:-10px}
-.method-name{font-family:'Inter';font-size:32px;letter-spacing:2px;margin-bottom:6px}
-.method-sub{font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--red);margin-bottom:16px}
-.method-desc{font-size:14px;color:var(--muted);line-height:1.7;margin-bottom:24px}
-
-/* ─── DOE STEPS ─── */
-.doe-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-top:48px;position:relative}
-.doe-steps::before{content:'';position:absolute;top:60px;left:calc(16.66% + 20px);right:calc(16.66% + 20px);height:2px;background:linear-gradient(90deg,var(--red),var(--red-dark));z-index:0}
-.doe-step{background:var(--bg3);border:1px solid var(--border);padding:36px 28px;position:relative;z-index:1}
-.doe-step:first-child{border-radius:4px 0 0 4px}
-.doe-step:last-child{border-radius:0 4px 4px 0}
-.doe-letter{font-family:'Inter';font-size:80px;color:var(--red);line-height:1;opacity:.15;position:absolute;top:16px;right:20px}
-.doe-step-name{font-family:'Inter';font-size:28px;letter-spacing:2px;margin-bottom:8px}
-.doe-step-sub{font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--red);margin-bottom:16px}
-.doe-step p{font-size:14px;color:var(--muted);line-height:1.75}
-
-/* ─── BENEFITS ─── */
-.benefits-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:48px}
-.benefit{background:var(--bg3);border:1px solid var(--border);padding:28px;border-radius:4px;text-align:center}
-.benefit-num{font-family:'Inter';font-size:52px;color:var(--red);line-height:1;margin-bottom:6px}
-.benefit-label{font-size:13px;color:var(--muted);letter-spacing:1px}
-
-/* ─── ACCORDION ─── */
-.acc{margin-top:40px;display:flex;flex-direction:column;gap:8px}
-.acc-item{background:var(--bg3);border:1px solid var(--border);border-radius:4px;overflow:hidden}
-.acc-q{width:100%;background:none;border:none;color:var(--text);font-family:'Inter';font-size:15px;font-weight:600;padding:18px 24px;text-align:left;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:16px;transition:background .2s}
-.acc-q:hover{background:rgba(255,255,255,0.03)}
-.acc-q.open{color:var(--red)}
-.acc-arrow{font-size:18px;color:var(--red);transition:transform .3s;flex-shrink:0}
-.acc-q.open .acc-arrow{transform:rotate(45deg)}
-.acc-a{display:none;padding:0 24px 20px;font-size:14px;color:var(--muted);line-height:1.8}
-.acc-a.open{display:block}
-
-/* ─── BEFORE AFTER ─── */
-.ba-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:48px}
-.ba-card{background:var(--bg3);border:1px solid var(--border);padding:32px;border-radius:4px}
-.ba-card.after{border-color:rgba(224,20,31,0.4)}
-.ba-title{font-family:'Inter';font-size:18px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:20px;padding-bottom:12px;border-bottom:1px solid var(--border)}
-.ba-title.red{border-color:rgba(224,20,31,0.3)}
-.ba-list{display:flex;flex-direction:column;gap:10px}
-.ba-item{font-size:14px;display:flex;align-items:flex-start;gap:10px}
-.ba-item .icon{font-size:16px;flex-shrink:0;margin-top:2px}
-
-/* ─── LRR FLOW ─── */
-.lrr-flow{display:flex;flex-direction:column;gap:0;margin-top:48px;position:relative}
-.lrr-flow::before{content:'';position:absolute;left:28px;top:40px;bottom:40px;width:2px;background:linear-gradient(180deg,var(--red),var(--red-dark))}
-.lrr-step{display:flex;gap:24px;align-items:flex-start;padding:20px 0;position:relative}
-.lrr-num{width:56px;height:56px;background:var(--red);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Inter';font-size:22px;flex-shrink:0;position:relative;z-index:1}
-.lrr-body{background:var(--bg3);border:1px solid var(--border);padding:20px 24px;border-radius:4px;flex:1}
-.lrr-body h3{font-family:'Inter';font-size:17px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:6px}
-.lrr-body p{font-size:14px;color:var(--muted);line-height:1.7}
-.rotate-box{background:rgba(224,20,31,0.08);border:2px solid var(--red);border-radius:4px;padding:24px 28px;margin-top:32px}
-.rotate-box h3{font-family:'Inter';font-size:24px;letter-spacing:2px;color:var(--red);margin-bottom:10px}
-.rotate-box p{font-size:14px;color:var(--muted);line-height:1.8}
-
-/* ─── SCMAO STEPS ─── */
-.scmao-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:16px;margin-top:48px}
-.scmao-step{background:var(--bg3);border:1px solid var(--border);padding:24px 18px;border-radius:4px;text-align:center;transition:transform .2s}
-.scmao-step:hover{transform:translateY(-4px);border-color:rgba(224,20,31,0.4)}
-.scmao-letter{font-family:'Inter';font-size:60px;color:var(--red);line-height:1;margin-bottom:8px}
-.scmao-name{font-family:'Inter';font-size:15px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px}
-.scmao-desc{font-size:13px;color:var(--muted);line-height:1.7}
-
-/* ─── CTA BANNER ─── */
-.cta-banner{background:var(--red);padding:70px 0;text-align:center}
-.cta-banner h2{font-family:'Inter';font-size:clamp(24px,5vw,56px);letter-spacing:2px;color:#fff;margin-bottom:16px}
-.cta-banner p{font-size:16px;color:rgba(255,255,255,0.8);margin-bottom:32px}
-.cta-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
-
-/* ─── FOOTER ─── */
-footer{background:#050505;border-top:1px solid var(--border);padding:50px 0 30px}
-.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;margin-bottom:40px}
-.footer-brand p{font-size:13px;color:var(--muted);margin-top:10px;line-height:1.7;max-width:220px}
-.footer-col h4{font-family:'Inter';font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:16px}
-.footer-col a,.footer-col span{display:block;font-size:13px;color:var(--muted);text-decoration:none;margin-bottom:8px;cursor:pointer;transition:color .2s}
-.footer-col a:hover{color:var(--red)}
-.footer-bottom{border-top:1px solid var(--border);padding-top:24px;text-align:center;font-size:12px;color:var(--muted);letter-spacing:1px}
-
-/* ─── WHATSAPP FLOAT ─── */
-.wa-float{position:fixed;bottom:24px;right:24px;width:56px;height:56px;background:#25d366;border-radius:50%;display:flex;align-items:center;justify-content:center;z-index:1000;box-shadow:0 4px 20px rgba(37,211,102,0.4);transition:transform .2s;text-decoration:none}
-.wa-float:hover{transform:scale(1.1)}
-.wa-float svg{width:28px;height:28px;fill:#fff}
-
-/* ─── ITEM LIST ─── */
-.item-list{display:flex;flex-direction:column;gap:10px;margin-top:32px}
-.item{display:flex;align-items:flex-start;gap:14px;padding:14px 20px;background:var(--bg3);border:1px solid var(--border);border-radius:3px;font-size:14px;color:var(--muted)}
-.item .dot{width:8px;height:8px;background:var(--red);border-radius:50%;flex-shrink:0;margin-top:6px}
-
-/* ─── FADE IN ─── */
-.fade{opacity:0;transform:translateY(24px);transition:opacity .6s,transform .6s}
-.fade.visible{opacity:1;transform:none}
-
-/* ─── MOBILE ─── */
-@media(max-width:768px){
-  nav{display:none}
-  .ham{display:flex}
-  body{overflow-x:hidden}
-  .wrap,
-  .wrap.hero-content,
-  div.wrap{padding-left:24px !important;padding-right:24px !important}
-  .hero-content{padding-top:0px;padding-bottom:36px;margin-top:-155px}
-  .btns{flex-direction:column;gap:10px;margin-top:16px}
-  .btns .btn{display:block;width:100%;text-align:center;padding:14px 12px;font-size:15px;letter-spacing:1px}
-  .hero-stats{gap:16px;margin-top:24px}
-  .stat-num{font-size:22px}
-  .stat-label{font-size:10px}
-  .stat{padding-left:10px}
-  .sec-title{font-size:clamp(22px,6.5vw,34px);letter-spacing:0;line-height:1.1}
-  .sec-sub{font-size:14px}
-  .prob-grid,.method-grid,.benefits-grid,.ba-grid{grid-template-columns:1fr}
-  .doe-steps{grid-template-columns:1fr;gap:10px}
-  .doe-steps::before{display:none}
-  .doe-step:first-child,.doe-step:last-child{border-radius:4px}
-  .scmao-grid{grid-template-columns:1fr 1fr}
-  .scmao-grid .scmao-step:last-child{grid-column:1/-1}
-  .footer-grid{grid-template-columns:1fr 1fr}
-  .sec{padding:44px 0}
-  .sec-sm{padding:30px 0}
-  .cta-banner{padding:44px 0}
-  .cta-btns{flex-direction:column;gap:10px}
-  .cta-btns .btn{display:block;width:100%;text-align:center;padding:14px 12px;font-size:12px;letter-spacing:1px}
-  .method-card{padding:22px 16px}
-  .method-num{font-size:44px}
-  .lrr-flow::before{left:22px}
-  .lrr-num{width:44px;height:44px;font-size:17px;flex-shrink:0}
-  .tag{font-size:10px;letter-spacing:1.5px}
-  .item{font-size:13px;padding:12px 14px}
-  .ba-card{padding:22px 16px}
-  .ba-item{font-size:13px}
+/* ===================== SCROLL REVEAL ===================== */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
 }
-@media(max-width:400px){
-  .hero h1{font-size:22px !important;line-height:1.25;letter-spacing:0}
-  .scmao-grid{grid-template-columns:1fr}
-  .scmao-grid .scmao-step:last-child{grid-column:auto}
-  .footer-grid{grid-template-columns:1fr}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
+.reveal-delay-5 { transition-delay: 0.5s; }
+.reveal-delay-6 { transition-delay: 0.6s; }
+
+/* ===================== BUTTONS ===================== */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #ffffff;
+  color: #111111;
+  border-radius: 0px;
+  padding: 11px 26px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  position: relative;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.btn-primary::after {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%;
+  width: 100%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+  transition: left 0.4s ease;
+}
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(255,255,255,0.15); }
+.btn-primary:hover::after { left: 100%; }
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  color: #ffffff;
+  border: 2px solid rgba(255,255,255,0.25);
+  border-radius: 0px;
+  padding: 11px 26px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+  white-space: nowrap;
+}
+.btn-secondary:hover { transform: translateY(-2px); border-color: rgba(255,255,255,0.5); background: rgba(255,255,255,0.05); }
+
+/* ===================== TAGS / BADGES ===================== */
+.section-tag {
+  display: inline-block;
+  font-family: 'Inter', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  border: 1px solid var(--border);
+  padding: 6px 14px;
+  border-radius: 2px;
+  margin-bottom: 24px;
+}
+
+/* ===================== CARDS ===================== */
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 10%; right: 10%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+}
+.card:hover {
+  transform: translateY(-4px);
+  border-color: var(--border-hover);
+  box-shadow: 0 16px 40px rgba(0,0,0,0.5);
+}
+
+/* ===================== GRID BACKGROUND ===================== */
+.grid-bg {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+  background-size: 60px 60px;
+  mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black 40%, transparent 100%);
+  pointer-events: none;
+}
+
+/* ===================== GLOW ===================== */
+.glow-center {
+  position: absolute;
+  top: -20%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 700px;
+  height: 400px;
+  background: radial-gradient(ellipse, rgba(255,255,255,0.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+/* ===================== NAV ===================== */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 56px;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  background: rgba(8,8,8,0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+  transition: background 0.3s ease;
+}
+nav.scrolled { background: rgba(8,8,8,0.98); }
+.nav-btn {
+  font-size: 10px !important;
+  padding: 11px !important;
+  letter-spacing: 1.5px !important;
+}
+
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 20px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+.logo-dot {
+  width: 8px; height: 8px;
+  background: #ffffff;
+  border-radius: 50%;
+  animation: pulse-dot 2s ease-in-out infinite;
+}
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(255,255,255,0.4); }
+  50% { opacity: 0.7; box-shadow: 0 0 0 5px rgba(255,255,255,0); }
+}
+
+/* ===================== HERO ===================== */
+#hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 100px 24px 80px;
+  position: relative;
+  text-align: center;
+  overflow: hidden;
+  background: #080808;
+}
+@keyframes sd-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+.hero-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 40px;
+  animation: sd-float 4s ease-in-out infinite;
+}
+.hero-logo-icon { width: 52px; height: 52px; }
+.hero-logo-name {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900;
+  font-size: 36px;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  color: #f0f0f0;
+}
+.hero-h1 {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900;
+  font-size: clamp(32px, 6vw, 80px);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  line-height: 1;
+  color: #f0f0f0;
+  max-width: 680px;
+  margin-bottom: 20px;
+}
+.hero-h1 span { color: rgba(240,240,240,0.38); }
+.hero-sub {
+  font-size: clamp(14px, 1.8vw, 17px);
+  color: var(--text-secondary);
+  max-width: 520px;
+  line-height: 1.7;
+  margin-bottom: 48px;
+}
+.hero-sub strong { color: #f0f0f0; font-weight: 600; }
+/* Card estilo Fly */
+.hero-card {
+  background: #1a1a1a;
+  border-radius: 22px;
+  padding: 36px 28px 32px;
+  width: 100%;
+  max-width: 460px;
+  position: relative;
+  margin-bottom: 48px;
+  border: 1px solid rgba(255,255,255,0.08);
+}
+.hero-card-dollar {
+  position: absolute;
+  top: -20px; right: -14px;
+  width: 50px; height: 50px;
+  background: #ffffff;
+  color: #111;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  font-weight: 900;
+  box-shadow: 0 4px 20px rgba(255,255,255,0.2);
+  animation: sd-float 3.5s ease-in-out infinite;
+}
+.hero-card-arrow {
+  position: absolute;
+  bottom: -20px; left: -14px;
+  width: 50px; height: 50px;
+  background: #111;
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  color: #f0f0f0;
+}
+.hero-card-title {
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 15px;
+  color: #f0f0f0;
+  margin-bottom: 22px;
+  text-align: left;
+}
+.hero-field {
+  width: 100%;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 8px;
+  padding: 13px 16px;
+  color: #f0f0f0;
+  font-size: 14px;
+  font-family: 'Inter', sans-serif;
+  outline: none;
+  margin-bottom: 12px;
+  display: block;
+  transition: border-color 0.2s;
+}
+.hero-field:focus { border-color: rgba(255,255,255,0.3); }
+.hero-field::placeholder { color: rgba(255,255,255,0.3); }
+.hero-card-btn {
+  width: 100%;
+  background: #ffffff;
+  color: #111;
+  border: none;
+  border-radius: 8px;
+  padding: 15px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  cursor: pointer;
+  margin-top: 4px;
+  transition: transform 0.2s, box-shadow 0.2s;
+  position: relative;
+  overflow: hidden;
+}
+.hero-card-btn::after {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%;
+  width: 100%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
+  transition: left 0.4s;
+}
+.hero-card-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(255,255,255,0.18); }
+.hero-card-btn:hover::after { left: 100%; }
+.hero-proof {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 36px;
+  margin-bottom: 56px;
+}
+.hero-proof-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+.check-icon { color: var(--green); font-size: 14px; }
+.hero-stats {
+  display: flex;
+  gap: 0;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  overflow: hidden;
+}
+.hero-stat {
+  padding: 20px 32px;
+  border-right: 1px solid var(--border);
+  text-align: left;
+  position: relative;
+}
+.hero-stat:last-child { border-right: none; }
+.hero-stat::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 15%; bottom: 15%;
+  width: 2px;
+  background: #ffffff;
+  opacity: 0.6;
+}
+.hero-stat-num {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 32px;
+  color: #ffffff;
+  letter-spacing: 1px;
+}
+.hero-stat-label { font-size: 15px; color: var(--text-secondary); margin-top: 2px; }
+
+/* ===================== SECTIONS SHARED ===================== */
+section { padding: 100px 48px; }
+.section-inner { max-width: 1120px; margin: 0 auto; }
+.section-header { margin-bottom: 60px; }
+.section-header.centered { text-align: center; }
+
+.section-h2 {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: clamp(26px, 4vw, 58px);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  line-height: 1.05;
+  color: #f0f0f0;
+  margin-bottom: 16px;
+}
+.section-sub {
+  font-size: 15px;
+  color: var(--text-secondary);
+  max-width: 600px;
+  line-height: 1.7;
+}
+.section-header.centered .section-sub { margin: 0 auto; }
+
+/* ===================== DOR SECTION ===================== */
+#dor { background: var(--bg-alt); position: relative; overflow: hidden; }
+#dor .grid-bg { mask-image: radial-gradient(ellipse 100% 100% at 50% 0%, black, transparent); }
+
+.dor-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+.dor-card {
+  padding: 32px 28px;
+  position: relative;
+}
+.dor-card-num {
+  position: absolute;
+  top: 20px; right: 24px;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 64px;
+  color: rgba(255,255,255,0.04);
+  line-height: 1;
+  letter-spacing: 2px;
+}
+.dor-icon {
+  width: 40px; height: 40px;
+  margin-bottom: 20px;
+  opacity: 0.7;
+}
+.dor-card-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 10px;
+  color: #f0f0f0;
+}
+.dor-card-text { font-size: 15px; color: var(--text-secondary); line-height: 1.65; }
+
+/* ===================== CASE REAL ===================== */
+#case { background: var(--bg); }
+
+.case-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+.case-card { padding: 0; }
+.case-card-header {
+  padding: 28px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.case-card-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.case-card-subtitle { font-size: 15px; color: var(--text-secondary); }
+.case-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px;
+  border-radius: 2px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  width: fit-content;
+}
+.badge-red { background: var(--red-dark); color: var(--red); border: 1px solid rgba(248,113,113,0.2); }
+.badge-green { background: var(--green-dark); color: var(--green); border: 1px solid rgba(61,220,132,0.2); }
+
+.case-card-body { padding: 24px 28px; }
+.case-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  font-size: 15px;
+  line-height: 1.5;
+}
+.case-item:last-child { border-bottom: none; }
+.case-item-icon { font-size: 14px; margin-top: 1px; flex-shrink: 0; }
+.icon-red { color: var(--red); }
+.icon-green { color: var(--green); }
+
+.case-card-footer {
+  margin: 0 28px 28px;
+  padding: 20px 24px;
+  border-radius: 4px;
+  text-align: center;
+}
+.footer-red { background: var(--red-dark); border: 1px solid rgba(248,113,113,0.15); }
+.footer-green { background: var(--green-dark); border: 1px solid rgba(61,220,132,0.15); }
+.case-footer-label { font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 6px; }
+.label-red { color: var(--red); }
+.label-green { color: var(--green); }
+.case-footer-num {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 28px;
+  letter-spacing: 1px;
+  margin-bottom: 4px;
+}
+.case-footer-detail { font-size: 15px; color: var(--text-secondary); }
+
+/* ===================== CASE ICON ===================== */
+.case-icon-wrap {
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.case-icon-red { background: var(--red-dark); }
+.case-icon-green { background: var(--green-dark); }
+
+/* ===================== FUNCIONALIDADES ===================== */
+#funcionalidades { background: var(--bg-alt); position: relative; overflow: hidden; }
+
+.func-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+.func-card { padding: 32px 28px; }
+.func-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 15px;
+  letter-spacing: 3px;
+  color: var(--text-secondary);
+  margin-bottom: 16px;
+}
+.func-icon {
+  width: 40px; height: 40px;
+  margin-bottom: 16px;
+  opacity: 0.85;
+}
+.func-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 10px;
+  color: #f0f0f0;
+}
+.func-text { font-size: 15px; color: var(--text-secondary); line-height: 1.65; }
+
+/* ===================== PROCESSO ===================== */
+#processo { background: var(--bg); }
+
+.steps-wrap { position: relative; max-width: 700px; margin: 0 auto; }
+.steps-line {
+  position: absolute;
+  left: 22px;
+  top: 40px;
+  bottom: 40px;
+  width: 1px;
+  background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.12) 10%, rgba(255,255,255,0.12) 90%, transparent);
+}
+.step {
+  display: flex;
+  gap: 28px;
+  padding: 0 0 40px 0;
+  position: relative;
+}
+.step:last-child { padding-bottom: 0; }
+.step-num-wrap {
+  flex-shrink: 0;
+  width: 44px; height: 44px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 16px;
+  letter-spacing: 1px;
+  color: var(--text-secondary);
+  position: relative;
+  z-index: 1;
+  transition: border-color 0.3s, color 0.3s;
+}
+.step:hover .step-num-wrap { border-color: rgba(255,255,255,0.3); color: #ffffff; }
+.step-body { padding-top: 10px; }
+.step-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 20px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 10px;
+  color: #f0f0f0;
+}
+.step-text { font-size: 16px; color: var(--text-secondary); line-height: 1.7; }
+
+/* ===================== RISCO ZERO ===================== */
+#risco { background: var(--bg-alt); position: relative; overflow: hidden; }
+
+.risco-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+}
+.risco-list { list-style: none; display: flex; flex-direction: column; gap: 14px; margin-top: 32px; }
+.risco-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+.risco-check { color: var(--green); font-size: 16px; margin-top: 1px; flex-shrink: 0; }
+
+.risco-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  padding: 40px 36px;
+  position: relative;
+  overflow: hidden;
+}
+.risco-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 10%; right: 10%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+}
+.risco-card-icon {
+  width: 60px; height: 60px;
+  margin-bottom: 24px;
+}
+.risco-card-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 22px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 12px;
+  color: #f0f0f0;
+}
+.risco-card-text { font-size: 15px; color: var(--text-secondary); line-height: 1.7; margin-bottom: 28px; }
+.risco-divider { height: 1px; background: var(--border); margin-bottom: 24px; }
+.risco-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.risco-stat-num {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 36px;
+  color: #ffffff;
+  letter-spacing: 1px;
+}
+.risco-stat-label { font-size: 15px; color: var(--text-secondary); margin-top: 4px; line-height: 1.4; }
+
+/* ===================== CTA FINAL ===================== */
+#cta {
+  background: var(--bg);
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+  padding: 120px 48px;
+}
+#cta .glow-center { top: -10%; }
+
+.cta-h2 {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900;
+  font-size: clamp(28px, 5vw, 72px);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  line-height: 1.0;
+  margin-bottom: 20px;
+}
+.cta-sub { font-size: 15px; color: var(--text-secondary); max-width: 480px; margin: 0 auto 40px; line-height: 1.7; }
+
+.cta-form {
+  display: flex;
+  gap: 12px;
+  max-width: 460px;
+  margin: 0 auto 16px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.cta-input {
+  flex: 1;
+  min-width: 200px;
+  background: #161616;
+  border: 1px solid var(--border);
+  border-radius: 0px;
+  padding: 12px 18px;
+  color: #f0f0f0;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+.cta-input::placeholder { color: #444; }
+.cta-input:focus { border-color: rgba(255,255,255,0.25); }
+
+.cta-note { font-size: 15px; color: #555; letter-spacing: 0.5px; }
+.cta-note span { margin: 0 8px; }
+
+/* ===================== FOOTER ===================== */
+footer {
+  background: #060606;
+  border-top: 1px solid var(--border);
+  padding: 60px 48px 40px;
+}
+.footer-inner { max-width: 1120px; margin: 0 auto; }
+.footer-top {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr 1fr;
+  gap: 40px;
+  margin-bottom: 48px;
+}
+.footer-brand { }
+.footer-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 12px;
+}
+.footer-tagline { font-size: 15px; color: var(--text-secondary); line-height: 1.6; }
+.footer-col-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--text-secondary);
+  margin-bottom: 16px;
+}
+.footer-links { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+.footer-links li a {
+  font-size: 15px;
+  color: #555;
+  transition: color 0.2s;
+}
+.footer-links li a:hover { color: #f0f0f0; }
+.footer-bottom {
+  border-top: 1px solid var(--border);
+  padding-top: 24px;
+  font-size: 15px;
+  color: #444;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+/* ===================== MODAL ===================== */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.8);
+  backdrop-filter: blur(8px);
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+.modal-overlay.active {
+  opacity: 1;
+  pointer-events: all;
+}
+.modal {
+  background: #111111;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 0px;
+  padding: 48px 40px;
+  max-width: 460px;
+  width: 100%;
+  position: relative;
+  transform: scale(0.92);
+  transition: transform 0.25s ease;
+  text-align: center;
+}
+.modal-overlay.active .modal { transform: scale(1); }
+.modal::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 15%; right: 15%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+}
+.modal-icon {
+  width: 56px; height: 56px;
+  margin: 0 auto 24px;
+}
+.modal-close {
+  position: absolute;
+  top: 16px; right: 20px;
+  font-size: 20px;
+  color: #555;
+  transition: color 0.2s;
+  background: none;
+  border: none;
+  cursor: pointer;
+  line-height: 1;
+}
+.modal-close:hover { color: #f0f0f0; }
+.modal-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 26px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin-bottom: 12px;
+}
+.modal-text { font-size: 15px; color: var(--text-secondary); line-height: 1.7; margin-bottom: 28px; }
+.modal-input {
+  width: 100%;
+  background: #161616;
+  border: 1px solid var(--border);
+  border-radius: 0px;
+  padding: 12px 18px;
+  color: #f0f0f0;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s;
+  margin-bottom: 14px;
+}
+.modal-input:focus { border-color: rgba(255,255,255,0.25); }
+.modal-input::placeholder { color: #444; }
+.modal-btn { width: 100%; justify-content: center; }
+.modal-skip {
+  display: block;
+  margin-top: 14px;
+  font-size: 15px;
+  color: #555;
+  cursor: pointer;
+  transition: color 0.2s;
+  background: none;
+  border: none;
+}
+.modal-skip:hover { color: #f0f0f0; }
+
+/* ===================== SVG ICONS ===================== */
+.icon-svg { width: 40px; height: 40px; }
+
+/* ===================== RESPONSIVE ===================== */
+@media (max-width: 1024px) {
+  .dor-grid, .func-grid { grid-template-columns: repeat(2, 1fr); }
+  .footer-top { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 768px) {
+  nav { padding: 0 20px; }
+  section { padding: 72px 20px; }
+  #hero { padding: 100px 20px 60px; }
+  #cta { padding: 80px 20px; }
+  footer { padding: 48px 20px 32px; }
+  .dor-grid, .func-grid { grid-template-columns: 1fr; }
+  .case-grid { grid-template-columns: 1fr; }
+  .risco-grid { grid-template-columns: 1fr; gap: 40px; }
+  .hero-stats { flex-direction: column; border: none; gap: 16px; }
+  .hero-stat { border: 1px solid var(--border); border-radius: 4px; border-right: 1px solid var(--border) !important; }
+  .hero-proof { gap: 14px; }
+  .hero-card { padding: 28px 20px 24px; border-radius: 16px; }
+  .btn-primary, .btn-secondary { width: 100%; max-width: 320px; justify-content: center; }
+  .cta-form { flex-direction: column; align-items: stretch; }
+  .cta-input { min-width: unset; }
+  .cta-form .btn-primary { width: 100%; justify-content: center; }
+  .footer-top { grid-template-columns: 1fr 1fr; gap: 28px; }
+  .footer-bottom { flex-direction: column; text-align: center; }
+  .steps-line { left: 21px; }
+  .risco-stats { grid-template-columns: 1fr 1fr; }
+  .modal { padding: 36px 24px; }
+}
+
+@media (max-width: 480px) {
+  .footer-top { grid-template-columns: 1fr; }
+  .hero-h1 { font-size: 38px; }
+  .risco-stats { grid-template-columns: 1fr; }
 }
 </style>
 </head>
 <body>
 
-<!-- HEADER -->
-<header>
-  <div class="logo"><span>V4</span> CLESS</div>
-  <nav>
-    <a class="active" onclick="show('home',this)">Home</a>
-    <a onclick="show('doe',this)">Automação IA</a>
-    <a onclick="show('lrr',this)">Estratégia de Vendas</a>
-    <a onclick="show('scmao',this)">Tráfego Pago</a>
-  </nav>
-  <button class="ham" id="ham" onclick="toggleMob()">
-    <span></span><span></span><span></span>
-  </button>
-</header>
-<div class="mob-nav" id="mob">
-  <a onclick="show('home',this);closeMob()">Home</a>
-  <a onclick="show('doe',this);closeMob()">Automação IA</a>
-  <a onclick="show('lrr',this);closeMob()">Estratégia de Vendas</a>
-  <a onclick="show('scmao',this);closeMob()">Tráfego Pago</a>
-</div>
+<!-- ===================== NAV ===================== -->
+<nav id="navbar">
+  <div class="nav-logo">
+    <div class="logo-dot"></div>
+    SoftDelivery
+  </div>
+  <button class="btn-primary nav-btn open-modal">QUERO MEU SISTEMA</button>
+</nav>
 
-<!-- WhatsApp Float -->
-<a class="wa-float" href="https://wa.me/5548991351667" target="_blank" aria-label="WhatsApp">
-  <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-</a>
+<!-- ===================== HERO ===================== -->
+<section id="hero">
+  <div class="grid-bg"></div>
+  <div class="glow-center"></div>
 
-<!-- ═══════════════════════════════════════════
-     PAGE: HOME
-═══════════════════════════════════════════ -->
-<div class="page active" id="page-home">
+  <!-- Logo igual à Fly: ícone + nome -->
+  <div class="hero-logo reveal">
+    <svg class="hero-logo-icon" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="26" cy="26" r="25" fill="#1a1a1a" stroke="rgba(255,255,255,0.12)" stroke-width="1.2"/>
+      <path d="M26 9C26 9 17 15 17 25v9l9 7 9-7v-9C35 15 26 9 26 9Z" fill="rgba(255,255,255,0.07)" stroke="#f0f0f0" stroke-width="1.2"/>
+      <circle cx="26" cy="23" r="3.5" stroke="#f0f0f0" stroke-width="1.2" fill="rgba(255,255,255,0.1)"/>
+      <path d="M21 34C21 37.5 23.2 42 26 42C28.8 42 31 37.5 31 34" fill="rgba(255,255,255,0.1)" stroke="#f0f0f0" stroke-width="1"/>
+      <path d="M17 27L11 31L17 34Z" fill="rgba(255,255,255,0.07)" stroke="#f0f0f0" stroke-width="1"/>
+      <path d="M35 27L41 31L35 34Z" fill="rgba(255,255,255,0.07)" stroke="#f0f0f0" stroke-width="1"/>
+    </svg>
+    <span class="hero-logo-name">SoftDelivery</span>
+  </div>
 
-  <!-- HERO -->
-  <section class="hero">
-    <div class="hero-grid"></div>
-    <div class="wrap hero-content">
-      <div class="hero-tag">3 métodos comprovados</div>
-      <h1>PARE DE TRABALHAR<br>NO NEGÓCIO<br>COMECE A CRESCER</h1>
-      <p>Automação com IA + Equipe que vende com método + Clientes novos todo mês. Tudo isso sem precisar contratar mais gente.</p>
-      <div class="btns">
-        
-        <a class="btn btn-red" href="https://wa.me/5548991351667" target="_blank">FALAR AGORA NO WHATSAPP</a>
-      </div>
-      <div class="hero-stats fade">
-        <div class="stat"><div class="stat-num">+230%</div><div class="stat-label">Crescimento médio</div></div>
-        <div class="stat"><div class="stat-num">90 dias</div><div class="stat-label">Para ver resultado</div></div>
-        <div class="stat"><div class="stat-num">3</div><div class="stat-label">Métodos estruturados</div></div>
-      </div>
+  <!-- Headline -->
+  <h1 class="hero-h1 reveal reveal-delay-1">
+    Chega de pedido errado,<br>
+    <span>prejuízo e caos</span> no caixa.
+  </h1>
+
+  <!-- Subtítulo -->
+  <p class="hero-sub reveal reveal-delay-2">
+    Um sistema criado exclusivamente para o jeito que o seu negócio funciona. Você não paga nada antes de aprovar. Se não gostar, não deve nada. <strong>O risco é nosso.</strong>
+  </p>
+
+  <!-- Card estilo Fly -->
+  <div class="hero-card reveal reveal-delay-3">
+    <div class="hero-card-dollar">$</div>
+    <div class="hero-card-arrow">↗</div>
+
+    <div class="hero-card-title">Quero ver como funciona:</div>
+
+    <input type="text" class="hero-field" placeholder="* Nome">
+    <input type="email" class="hero-field" placeholder="* E-mail">
+    <input type="tel" class="hero-field" placeholder="* WhatsApp com DDD">
+    <input type="text" class="hero-field" placeholder="* Segmento do seu negócio">
+
+    <button class="hero-card-btn open-modal">QUERO VER COMO FUNCIONA →</button>
+  </div>
+
+  <!-- Proof -->
+  <div class="hero-proof reveal reveal-delay-4">
+    <div class="hero-proof-item"><span class="check-icon">✓</span> Feito sob medida para o seu negócio</div>
+    <div class="hero-proof-item"><span class="check-icon">✓</span> Zero risco — paga só após aprovar</div>
+    <div class="hero-proof-item"><span class="check-icon">✓</span> Suporte contínuo incluído</div>
+    <div class="hero-proof-item"><span class="check-icon">✓</span> Dados salvos na nuvem</div>
+  </div>
+
+  <!-- Stats -->
+  <div class="hero-stats reveal reveal-delay-5">
+    <div class="hero-stat">
+      <div class="hero-stat-num">22%</div>
+      <div class="hero-stat-label">Aumento médio de lucro no 1º mês</div>
     </div>
-  </section>
-
-  <!-- PROBLEMAS -->
-  <section class="sec bg2">
-    <div class="wrap">
-      <div class="center fade">
-        <div class="tag">Você se identifica?</div>
-        <h2 class="sec-title">A MAIORIA DOS DONOS DE PME VIVE ASSIM:</h2>
-        <p class="sec-sub">Se você se reconhecer em pelo menos um desses cenários, você está no lugar certo.</p>
-      </div>
-      <div class="prob-grid fade">
-        <div class="prob-card">
-          <div class="prob-icon">⏱️</div>
-          <h3>Trabalha 12h/dia e cresce 5%</h3>
-          <p>Você é o gargalo do próprio negócio. Cada decisão passa por você, cada problema bate na sua porta. Trabalha muito, cresce pouco.</p>
-        </div>
-        <div class="prob-card">
-          <div class="prob-icon">📉</div>
-          <h3>Vendedores que não batem meta</h3>
-          <p>Equipe no improviso, desconto fácil, resultado inconsistente. No final do mês, você ainda é o vendedor número 1 da empresa.</p>
-        </div>
-        <div class="prob-card">
-          <div class="prob-icon">📵</div>
-          <h3>Telefone que não toca todo mês</h3>
-          <p>Depende de indicação, não sabe de onde vem o próximo cliente. Mês bom, mês ruim — sem conseguir explicar o porquê.</p>
-        </div>
-      </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">3 seg</div>
+      <div class="hero-stat-label">Para fechar o caixa com o sistema</div>
     </div>
-  </section>
-
-  <!-- MÉTODOS -->
-  <section class="sec">
-    <div class="wrap">
-      <div class="center fade">
-        <div class="tag">A solução em 3 pilares</div>
-        <h2 class="sec-title">ESCOLHA SEU GARGALO E RESOLVA DE VEZ</h2>
-      </div>
-      <div class="method-grid fade">
-        <div class="method-card" onclick="show('doe',null)">
-          <div class="method-num">01</div>
-          <div class="method-name">MÉTODO DOE</div>
-          <div class="method-sub">Diagnóstico → Otimização → Automação</div>
-          <p class="method-desc">Elimine 90% das tarefas manuais. IA atende seu WhatsApp, gera orçamentos e cobra clientes enquanto você dorme. Sem precisar entender de tecnologia.</p>
-          <button class="btn btn-red">CONHECER O MÉTODO</button>
-        </div>
-        <div class="method-card" onclick="show('lrr',null)">
-          <div class="method-num">02</div>
-          <div class="method-name">MÉTODO LRR</div>
-          <div class="method-sub">Linha Reta Rotativa</div>
-          <p class="method-desc">Transformamos vendedores medianos em máquinas de fechamento. +45% de conversão em 90 dias. Sem desconto, sem improviso, sem depender do dono.</p>
-          <button class="btn btn-red">CONHECER O MÉTODO</button>
-        </div>
-        <div class="method-card" onclick="show('scmao',null)">
-          <div class="method-num">03</div>
-          <div class="method-name">MÉTODO SCMAO</div>
-          <div class="method-sub">Situação → Conhecimento → Meta → Anúncio → Otimização</div>
-          <p class="method-desc">Clientes novos todo mês de forma previsível. Sem depender de indicação. Sem contrato de 12 meses. Relatório em português simples.</p>
-          <button class="btn btn-red">CONHECER O MÉTODO</button>
-        </div>
-      </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">R$ 0</div>
+      <div class="hero-stat-label">Pago antes de você aprovar o sistema</div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- CTA BANNER -->
-  <div class="cta-banner fade">
-    <div class="wrap">
-      <h2>QUAL É O SEU MAIOR<br>GARGALO HOJE?</h2>
-      <p>Clique no método certo e veja como resolver de forma prática e rápida.</p>
-      <div class="cta-btns">
-        <button class="btn btn-white" onclick="show('doe',null)">🤖 PRECISO DE AUTOMAÇÃO</button>
-        <button class="btn btn-white" onclick="show('lrr',null)">💰 PRECISO VENDER MAIS</button>
-        <button class="btn btn-white" onclick="show('scmao',null)">📢 PRECISO DE CLIENTES</button>
+<!-- ===================== DOR ===================== -->
+<section id="dor">
+  <div class="grid-bg"></div>
+  <div class="section-inner">
+    <div class="section-header centered reveal">
+      <div class="section-tag">O Problema</div>
+      <h2 class="section-h2">Você reconhece alguma<br>dessas situações?</h2>
+      <p class="section-sub">São os gargalos invisíveis que drenam seu lucro todo dia — e que a maioria dos donos acha que é "normal do negócio".</p>
+    </div>
+
+    <div class="dor-grid">
+      <!-- Card 1 -->
+      <div class="card dor-card reveal reveal-delay-1">
+        <div class="dor-card-num">01</div>
+        <svg class="dor-icon" viewBox="0 0 40 40" fill="none">
+          <rect width="40" height="40" rx="20" fill="rgba(248,113,113,0.1)"/>
+          <path d="M13 14h14M13 20h10M13 26h6" stroke="#f87171" stroke-width="1.5" stroke-linecap="round"/>
+          <circle cx="28" cy="26" r="5" fill="rgba(248,113,113,0.15)" stroke="#f87171" stroke-width="1.5"/>
+          <path d="M26 26l1.5 1.5L30 24" stroke="#f87171" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <div class="dor-card-title">Pedido anotado errado</div>
+        <p class="dor-card-text">O garçom esquece, o cliente reclama, o produto vai pro lixo. E no final do dia você não sabe quantas vezes isso aconteceu.</p>
+      </div>
+      <!-- Card 2 -->
+      <div class="card dor-card reveal reveal-delay-2">
+        <div class="dor-card-num">02</div>
+        <svg class="dor-icon" viewBox="0 0 40 40" fill="none">
+          <rect width="40" height="40" rx="20" fill="rgba(248,113,113,0.1)"/>
+          <circle cx="20" cy="20" r="8" stroke="#f87171" stroke-width="1.5"/>
+          <path d="M20 14v6l4 2" stroke="#f87171" stroke-width="1.5" stroke-linecap="round"/>
+          <path d="M10 32l4-2" stroke="#f87171" stroke-width="1.5" stroke-linecap="round"/>
+          <path d="M30 32l-4-2" stroke="#f87171" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+        <div class="dor-card-title">Caixa fechando no prejuízo</div>
+        <p class="dor-card-text">Você vende o dia todo, olha o caixa à noite e o número não fecha. Onde foi o dinheiro? Sem sistema, você nunca vai saber.</p>
+      </div>
+      <!-- Card 3 -->
+      <div class="card dor-card reveal reveal-delay-3">
+        <div class="dor-card-num">03</div>
+        <svg class="dor-icon" viewBox="0 0 40 40" fill="none">
+          <rect width="40" height="40" rx="20" fill="rgba(248,113,113,0.1)"/>
+          <rect x="11" y="18" width="18" height="12" rx="1" stroke="#f87171" stroke-width="1.5"/>
+          <path d="M15 18v-3a5 5 0 0110 0v3" stroke="#f87171" stroke-width="1.5" stroke-linecap="round"/>
+          <path d="M20 23v2" stroke="#f87171" stroke-width="2" stroke-linecap="round"/>
+          <path d="M17 12l-2-2M23 12l2-2" stroke="#f87171" stroke-width="1.2" stroke-linecap="round" opacity="0.5"/>
+        </svg>
+        <div class="dor-card-title">Estoque no escuro</div>
+        <p class="dor-card-text">Produto acaba sem avisar. Você compra de mais do que não vende. O estoque vira um chute — e chute custa dinheiro.</p>
+      </div>
+      <!-- Card 4 -->
+      <div class="card dor-card reveal reveal-delay-1">
+        <div class="dor-card-num">04</div>
+        <svg class="dor-icon" viewBox="0 0 40 40" fill="none">
+          <rect width="40" height="40" rx="20" fill="rgba(248,113,113,0.1)"/>
+          <circle cx="20" cy="16" r="5" stroke="#f87171" stroke-width="1.5"/>
+          <path d="M10 30c0-5.523 4.477-8 10-8s10 2.477 10 8" stroke="#f87171" stroke-width="1.5" stroke-linecap="round"/>
+          <path d="M28 14l2-2M30 14l-2-2" stroke="#f87171" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+        <div class="dor-card-title">Tempo perdido no operacional</div>
+        <p class="dor-card-text">Você passa o dia resolvendo problema que um sistema resolveria sozinho. Sobra zero tempo para pensar no crescimento do negócio.</p>
+      </div>
+      <!-- Card 5 -->
+      <div class="card dor-card reveal reveal-delay-2">
+        <div class="dor-card-num">05</div>
+        <svg class="dor-icon" viewBox="0 0 40 40" fill="none">
+          <rect width="40" height="40" rx="20" fill="rgba(248,113,113,0.1)"/>
+          <path d="M12 28l6-8 4 4 6-10" stroke="#f87171" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="28" cy="14" r="2" fill="#f87171" opacity="0.5"/>
+          <path d="M10 32h20" stroke="#f87171" stroke-width="1.2" stroke-linecap="round" opacity="0.3"/>
+        </svg>
+        <div class="dor-card-title">Decisões no feeling</div>
+        <p class="dor-card-text">Qual produto mais vende? Qual horário dá mais movimento? Sem dados, você chuta. Chute errado é prejuízo.</p>
+      </div>
+      <!-- Card 6 -->
+      <div class="card dor-card reveal reveal-delay-3">
+        <div class="dor-card-num">06</div>
+        <svg class="dor-icon" viewBox="0 0 40 40" fill="none">
+          <rect width="40" height="40" rx="20" fill="rgba(248,113,113,0.1)"/>
+          <rect x="10" y="12" width="20" height="16" rx="2" stroke="#f87171" stroke-width="1.5"/>
+          <path d="M15 18h10M15 22h6" stroke="#f87171" stroke-width="1.5" stroke-linecap="round"/>
+          <path d="M25 21l4 4M29 21l-4 4" stroke="#f87171" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+        <div class="dor-card-title">Sistemas que não servem</div>
+        <p class="dor-card-text">Você já tentou um sistema pronto e não usou metade das funções. Não foi feito para você — e custou caro assim mesmo.</p>
       </div>
     </div>
   </div>
+</section>
 
-  <!-- FOOTER -->
-  <footer>
-    <div class="wrap">
-      <div class="footer-grid">
-        <div class="footer-brand">
-          <div class="logo"><span>V4</span> CLESS</div>
-          <p>Automação com IA, estratégia de vendas e tráfego pago para donos de PME que querem crescer sem trabalhar mais.</p>
-        </div>
-        <div class="footer-col">
-          <h4>Páginas</h4>
-          <a onclick="show('home',null)">Home</a>
-          <a onclick="show('doe',null)">Automação IA</a>
-          <a onclick="show('lrr',null)">Estratégia de Vendas</a>
-          <a onclick="show('scmao',null)">Tráfego Pago</a>
-        </div>
-        <div class="footer-col">
-          <h4>Métodos</h4>
-          <a onclick="show('doe',null)">Método DOE</a>
-          <a onclick="show('lrr',null)">Método LRR</a>
-          <a onclick="show('scmao',null)">Método SCMAO</a>
-        </div>
-        <div class="footer-col">
-          <h4>Contato</h4>
-          <a href="https://wa.me/5548991351667" target="_blank">WhatsApp: +55 48 9135-1667</a>
-          <span>Respondemos em até 4h</span>
-        </div>
-      </div>
-      <div class="footer-bottom">© 2025 V4 CLESS. Todos os direitos reservados.</div>
+<!-- ===================== CASE REAL ===================== -->
+<section id="case">
+  <div class="section-inner">
+    <div class="section-header centered reveal">
+      <div class="section-tag">Simulação Real</div>
+      <h2 class="section-h2">Veja o antes e depois<br>na prática</h2>
+      <p class="section-sub">Esse é o João. Dono de lanchonete há 6 anos, 4 mesas, 3 funcionários. A situação dele provavelmente parece familiar.</p>
     </div>
-  </footer>
-</div>
 
-<!-- ═══════════════════════════════════════════
-     PAGE: AUTOMAÇÃO IA — MÉTODO DOE
-═══════════════════════════════════════════ -->
-<div class="page" id="page-doe">
-
-  <!-- HERO -->
-  <section class="hero">
-    <div class="hero-grid"></div>
-    <div class="wrap hero-content">
-      <div class="hero-tag">Método DOE — Automação com IA</div>
-      <h1>VOCÊ TRABALHA 12H<br>POR DIA E SUA<br><span>MARGEM NÃO CRESCE?</span></h1>
-      <p>Enquanto você responde WhatsApp no jantar e faz relatório no fim de semana, seu concorrente automatizou e está faturando mais trabalhando menos.</p>
-      <div class="btns">
-        <a class="btn btn-red" href="https://wa.me/5548991351667?text=Quero%20saber%20mais%20sobre%20o%20M%C3%A9todo%20DOE" target="_blank">QUERO AUTOMATIZAR MEU NEGÓCIO</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- PROBLEMAS -->
-  <section class="sec-sm bg2">
-    <div class="wrap">
-      <div class="fade">
-        <div class="tag">Isso está acontecendo na sua empresa?</div>
-        <h2 class="sec-title">SE VOCÊ SE RECONHECE<br>AQUI, PRESTE ATENÇÃO:</h2>
-      </div>
-      <div class="item-list fade">
-        <div class="item"><div class="dot"></div>Você é o primeiro a chegar e o último a sair — e ainda assim sente que está no lugar</div>
-        <div class="item"><div class="dot"></div>Responde WhatsApp de cliente às 22h porque ninguém mais faz isso</div>
-        <div class="item"><div class="dot"></div>Já gastou com CRM caro que a equipe nunca usou direito</div>
-        <div class="item"><div class="dot"></div>Se você ficar doente 3 dias, a empresa para junto com você</div>
-        <div class="item"><div class="dot"></div>Sua equipe passa horas em tarefas repetitivas que uma máquina poderia fazer</div>
-        <div class="item"><div class="dot"></div>Tentou implementar IA sozinho com vídeo no YouTube e não deu certo</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- COMO FUNCIONA -->
-  <section class="sec">
-    <div class="wrap">
-      <div class="center fade">
-        <div class="tag">Como funciona</div>
-        <h2 class="sec-title">O MÉTODO DOE EM 3 ETAPAS</h2>
-        <p class="sec-sub">Um processo simples, feito por especialistas. Você não precisa entender de tecnologia.</p>
-      </div>
-      <div class="doe-steps fade">
-        <div class="doe-step">
-          <div class="doe-letter">D</div>
-          <div class="doe-step-name">DIAGNÓSTICO</div>
-          <div class="doe-step-sub">Analisamos sua operação real</div>
-          <p>Mapeamos cada processo, cada hora gasta, cada tarefa repetitiva. Encontramos onde seu tempo e dinheiro estão sendo desperdiçados. Você recebe um relatório claro com os 3 maiores gargalos da sua empresa.</p>
-        </div>
-        <div class="doe-step">
-          <div class="doe-letter">O</div>
-          <div class="doe-step-name">OTIMIZAÇÃO</div>
-          <div class="doe-step-sub">Reestruturamos antes de automatizar</div>
-          <p>Antes de colocar qualquer tecnologia, arrumamos a casa. Eliminamos o que não precisa existir, simplificamos o que é complicado demais, e preparamos o terreno para a automação funcionar do jeito certo.</p>
-        </div>
-        <div class="doe-step">
-          <div class="doe-letter">A</div>
-          <div class="doe-step-name">AUTOMAÇÃO</div>
-          <div class="doe-step-sub">Máquinas trabalham por você 24h</div>
-          <p>Implementamos agentes de IA que atendem clientes no WhatsApp, qualificam leads, geram orçamentos, disparam cobranças e organizam agenda — tudo automático, sem você precisar entender nada de código.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- BENEFÍCIOS -->
-  <section class="sec bg2">
-    <div class="wrap">
-      <div class="center fade">
-        <div class="tag">O que muda na sua vida</div>
-        <h2 class="sec-title">NÚMEROS QUE FAZEM DIFERENÇA</h2>
-      </div>
-      <div class="benefits-grid fade">
-        <div class="benefit"><div class="benefit-num">90%</div><div class="benefit-label">Tarefas repetitivas eliminadas</div></div>
-        <div class="benefit"><div class="benefit-num">60 dias</div><div class="benefit-label">Para o investimento se pagar</div></div>
-        <div class="benefit"><div class="benefit-num">24h</div><div class="benefit-label">Atendimento sem você</div></div>
-        <div class="benefit"><div class="benefit-num">3x</div><div class="benefit-label">Mais margem no final do mês</div></div>
-        <div class="benefit"><div class="benefit-num">15h</div><div class="benefit-label">Por semana de volta para você</div></div>
-        <div class="benefit"><div class="benefit-num">0</div><div class="benefit-label">Linhas de código que você precisa saber</div></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- OBJEÇÕES -->
-  <section class="sec">
-    <div class="wrap">
-      <div class="center fade">
-        <div class="tag">Suas dúvidas respondidas</div>
-        <h2 class="sec-title">PERGUNTAS QUE TODO<br>EMPRESÁRIO FAZ</h2>
-      </div>
-      <div class="acc fade">
-        <div class="acc-item">
-          <button class="acc-q" onclick="tog(this)">Isso funciona no meu tipo de negócio? <span class="acc-arrow">+</span></button>
-          <div class="acc-a">Sim. Já implementamos em pizzaria, clínica odontológica, escritório de contabilidade, loja de móveis, construtora e e-commerce. O método se adapta ao processo que você já tem — não te obriga a refazer a operação do zero. Se tem tarefa repetitiva, tem automação possível.</div>
-        </div>
-        <div class="acc-item">
-          <button class="acc-q" onclick="tog(this)">Quanto custa e em quanto tempo recupero o investimento? <span class="acc-arrow">+</span></button>
-          <div class="acc-a">O investimento se paga em média em 60 dias. Antes de fechar, fazemos a conta junto com você: quanto custa hoje sua equipe fazendo tarefas manuais? Quanto você perde em clientes que não foram respondidos? Esse é o número que a automação substitui — e normalmente ele é bem maior do que o investimento.</div>
-        </div>
-        <div class="acc-item">
-          <button class="acc-q" onclick="tog(this)">Minha equipe vai conseguir usar? E se rejeitarem? <span class="acc-arrow">+</span></button>
-          <div class="acc-a">Treinamento da equipe está incluído no processo. E a nossa experiência mostra o oposto do que você imagina: quando a equipe percebe que a IA faz o trabalho chato por eles, eles ficam aliviados — não resistentes. Ninguém gosta de ficar anotando pedido no papel.</div>
-        </div>
-        <div class="acc-item">
-          <button class="acc-q" onclick="tog(this)">E se vocês sumirem depois que eu pagar? <span class="acc-arrow">+</span></button>
-          <div class="acc-a">Acompanhamento contínuo faz parte do serviço, não é promessa de venda. Ficamos do seu lado durante toda a implementação, treinamos a equipe e permanecemos disponíveis depois. Nosso modelo depende do seu resultado — se você não tiver resultado, você não indica ninguém.</div>
-        </div>
-        <div class="acc-item">
-          <button class="acc-q" onclick="tog(this)">IA não é só para empresas grandes tipo Magalu e Itaú? <span class="acc-arrow">+</span></button>
-          <div class="acc-a">Era. Hoje qualquer empresa de médio porte acessa exatamente a mesma tecnologia que os grandes usam. A diferença é ter quem saiba implementar do jeito certo no seu processo específico — sem você precisar virar técnico para isso.</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ANTES E DEPOIS -->
-  <section class="sec bg2">
-    <div class="wrap">
-      <div class="center fade">
-        <div class="tag">A transformação</div>
-        <h2 class="sec-title">ANTES E DEPOIS DO MÉTODO DOE</h2>
-      </div>
-      <div class="ba-grid fade">
-        <div class="ba-card">
-          <div class="ba-title">❌ ANTES — A realidade atual</div>
-          <div class="ba-list">
-            <div class="ba-item"><span class="icon">❌</span>Trabalha 12h/dia e fatura os mesmos R$50k/mês</div>
-            <div class="ba-item"><span class="icon">❌</span>Margem de 10% porque a folha consome tudo</div>
-            <div class="ba-item"><span class="icon">❌</span>Toda decisão passa por você — você é o gargalo</div>
-            <div class="ba-item"><span class="icon">❌</span>Sem tempo para família, para pensar, para crescer</div>
-            <div class="ba-item"><span class="icon">❌</span>Se você parar, a empresa para junto</div>
+    <div class="case-grid">
+      <!-- ANTES -->
+      <div class="card case-card reveal reveal-delay-1">
+        <div class="case-card-header">
+          <div style="display:flex; align-items:center; gap:14px;">
+            <div class="case-icon-wrap case-icon-red">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <path d="M3 6h18M8 6V4a2 2 0 014 0v2M12 11v5M10 13h4" stroke="#f87171" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <rect x="5" y="6" width="14" height="15" rx="1" stroke="#f87171" stroke-width="1.5"/>
+              </svg>
+            </div>
+            <div>
+              <div class="case-card-title">João — Lanchonete do João</div>
+              <div class="case-card-subtitle">4 mesas · 3 funcionários · Bairro comercial</div>
+            </div>
           </div>
+          <div class="case-badge badge-red">● ANTES DO SISTEMA</div>
         </div>
-        <div class="ba-card after">
-          <div class="ba-title red">✅ DEPOIS — Com o Método DOE</div>
-          <div class="ba-list">
-            <div class="ba-item"><span class="icon">✅</span>Trabalha 4h/dia no estratégico e fatura R$80k+</div>
-            <div class="ba-item"><span class="icon">✅</span>Margem subindo porque as máquinas substituem horas</div>
-            <div class="ba-item"><span class="icon">✅</span>Sistema roda sozinho — você é o CEO, não o bombeiro</div>
-            <div class="ba-item"><span class="icon">✅</span>Fim de semana de verdade, jantar com a família</div>
-            <div class="ba-item"><span class="icon">✅</span>A empresa funciona mesmo quando você não está</div>
-          </div>
+        <div class="case-card-body">
+          <div class="case-item"><span class="case-item-icon icon-red">✕</span><span>Pedidos anotados em papel — garçom perde a comanda na correria</span></div>
+          <div class="case-item"><span class="case-item-icon icon-red">✕</span><span>Caixa fechado na mão, 40 minutos todo fim de dia</span></div>
+          <div class="case-item"><span class="case-item-icon icon-red">✕</span><span>Estoque zerado sem aviso — cliente pede, não tem</span></div>
+          <div class="case-item"><span class="case-item-icon icon-red">✕</span><span>Não sabe qual lanche vende mais, repõe no chute</span></div>
+          <div class="case-item"><span class="case-item-icon icon-red">✕</span><span>Funcionário some com troco sem que João perceba</span></div>
+          <div class="case-item"><span class="case-item-icon icon-red">✕</span><span>Sexta à noite: pico de movimento e caos total</span></div>
+        </div>
+        <div class="case-card-footer footer-red">
+          <div class="case-footer-label label-red">Prejuízo estimado por mês</div>
+          <div class="case-footer-num" style="color: var(--red);">R$ 1.200 – R$ 2.500</div>
+          <div class="case-footer-detail">em pedidos errados, desvios e reposição desnecessária</div>
         </div>
       </div>
-    </div>
-  </section>
 
-  <!-- CTA FINAL -->
-  <div class="cta-banner">
-    <div class="wrap">
-      <h2>PRONTO PARA ELIMINAR O TRABALHO MANUAL?</h2>
-      <p>Agende uma análise gratuita. A gente olha seu negócio e te diz o que dá para automatizar — sem compromisso.</p>
-      <div class="cta-btns">
-        <a class="btn btn-white" href="https://wa.me/5548991351667?text=Quero%20agendar%20uma%20an%C3%A1lise%20gratuita%20do%20M%C3%A9todo%20DOE" target="_blank">AGENDAR ANÁLISE GRATUITA</a>
+      <!-- DEPOIS -->
+      <div class="card case-card reveal reveal-delay-2">
+        <div class="case-card-header">
+          <div style="display:flex; align-items:center; gap:14px;">
+            <div class="case-icon-wrap case-icon-green">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <circle cx="12" cy="12" r="9" stroke="#3ddc84" stroke-width="1.5"/>
+                <path d="M8 12l3 3 5-5" stroke="#3ddc84" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <div>
+              <div class="case-card-title">João — Com o SoftDelivery</div>
+              <div class="case-card-subtitle">Mesmo negócio. Outra operação.</div>
+            </div>
+          </div>
+          <div class="case-badge badge-green">● DEPOIS DO SISTEMA</div>
+        </div>
+        <div class="case-card-body">
+          <div class="case-item"><span class="case-item-icon icon-green">✓</span><span>Garçom lança pedido no celular — vai direto pra cozinha</span></div>
+          <div class="case-item"><span class="case-item-icon icon-green">✓</span><span>Caixa fecha automaticamente em segundos</span></div>
+          <div class="case-item"><span class="case-item-icon icon-green">✓</span><span>Alerta automático quando estoque está baixo</span></div>
+          <div class="case-item"><span class="case-item-icon icon-green">✓</span><span>Dashboard mostra o lanche mais vendido em tempo real</span></div>
+          <div class="case-item"><span class="case-item-icon icon-green">✓</span><span>Todo movimento financeiro registrado e auditável</span></div>
+          <div class="case-item"><span class="case-item-icon icon-green">✓</span><span>Sexta à noite: mais pedidos, menos erro, menos estresse</span></div>
+        </div>
+        <div class="case-card-footer footer-green">
+          <div class="case-footer-label label-green">Retorno do investimento</div>
+          <div class="case-footer-num" style="color: var(--green);">3 semanas</div>
+          <div class="case-footer-detail">João recuperou o investimento só com a redução de erros e reposição de estoque</div>
+        </div>
       </div>
     </div>
   </div>
+</section>
 
-  <footer>
-    <div class="wrap">
-      <div class="footer-grid">
-        <div class="footer-brand">
-          <div class="logo"><span>V4</span> CLESS</div>
-          <p>Automação com IA, estratégia de vendas e tráfego pago para donos de PME que querem crescer sem trabalhar mais.</p>
-        </div>
-        <div class="footer-col">
-          <h4>Páginas</h4>
-          <a onclick="show('home',null)">Home</a>
-          <a onclick="show('doe',null)">Automação IA</a>
-          <a onclick="show('lrr',null)">Estratégia de Vendas</a>
-          <a onclick="show('scmao',null)">Tráfego Pago</a>
-        </div>
-        <div class="footer-col">
-          <h4>Métodos</h4>
-          <a onclick="show('doe',null)">Método DOE</a>
-          <a onclick="show('lrr',null)">Método LRR</a>
-          <a onclick="show('scmao',null)">Método SCMAO</a>
-        </div>
-        <div class="footer-col">
-          <h4>Contato</h4>
-          <a href="https://wa.me/5548991351667" target="_blank">WhatsApp: +55 48 9135-1667</a>
-          <span>Respondemos em até 4h</span>
-        </div>
-      </div>
-      <div class="footer-bottom">© 2025 V4 CLESS. Todos os direitos reservados.</div>
+<!-- ===================== FUNCIONALIDADES ===================== -->
+<section id="funcionalidades">
+  <div class="grid-bg"></div>
+  <div class="section-inner">
+    <div class="section-header centered reveal">
+      <div class="section-tag">O Que Está Incluído</div>
+      <h2 class="section-h2">Tudo que o seu negócio precisa,<br>numa só tela</h2>
+      <p class="section-sub">Não é um sistema genérico com 200 funções inúteis. É exatamente o que você precisa — construído para como você trabalha.</p>
     </div>
-  </footer>
-</div>
 
-<!-- ═══════════════════════════════════════════
-     PAGE: VENDAS — MÉTODO LRR
-═══════════════════════════════════════════ -->
-<div class="page" id="page-lrr">
-
-  <section class="hero">
-    <div class="hero-grid"></div>
-    <div class="wrap hero-content">
-      <div class="hero-tag">Método LRR — Linha Reta Rotativa</div>
-      <h1>SEU TIME DE<br>VENDAS FUNCIONA<br><span>NO IMPROVISO?</span></h1>
-      <p>Você contratou, treinou, motivou. Mas continua sendo você quem fecha os negócios importantes. A equipe trava na objeção, dá desconto fácil e ainda culpa o mercado.</p>
-      <div class="btns">
-        <a class="btn btn-red" href="https://wa.me/5548991351667?text=Quero%20saber%20mais%20sobre%20o%20M%C3%A9todo%20LRR" target="_blank">QUERO TRANSFORMAR MEU TIME</a>
+    <div class="func-grid">
+      <!-- 01 -->
+      <div class="card func-card reveal reveal-delay-1">
+        <div class="func-num">01</div>
+        <svg class="func-icon" viewBox="0 0 40 40" fill="none">
+          <rect width="40" height="40" rx="20" fill="rgba(255,255,255,0.05)"/>
+          <rect x="10" y="12" width="9" height="9" rx="1" stroke="#f0f0f0" stroke-width="1.5" opacity="0.7"/>
+          <rect x="21" y="12" width="9" height="9" rx="1" stroke="#f0f0f0" stroke-width="1.5" opacity="0.4"/>
+          <rect x="10" y="23" width="9" height="9" rx="1" stroke="#f0f0f0" stroke-width="1.5" opacity="0.4"/>
+          <rect x="21" y="23" width="9" height="9" rx="1" stroke="#f0f0f0" stroke-width="1.5" opacity="0.2"/>
+        </svg>
+        <div class="func-title">Gestão de Mesas</div>
+        <p class="func-text">Veja quais mesas estão ocupadas, quanto cada uma consumiu e o tempo de espera — em tempo real, de qualquer dispositivo.</p>
       </div>
-    </div>
-  </section>
-
-  <section class="sec-sm bg2">
-    <div class="wrap">
-      <div class="fade">
-        <div class="tag">Você reconhece algum desses cenários?</div>
-        <h2 class="sec-title">SE ISSO ACONTECE<br>NA SUA EMPRESA, LEIA:</h2>
+      <!-- 02 -->
+      <div class="card func-card reveal reveal-delay-2">
+        <div class="func-num">02</div>
+        <svg class="func-icon" viewBox="0 0 40 40" fill="none">
+          <rect width="40" height="40" rx="20" fill="rgba(255,255,255,0.05)"/>
+          <rect x="13" y="10" width="14" height="20" rx="2" stroke="#f0f0f0" stroke-width="1.5" opacity="0.7"/>
+          <path d="M17 15h6M17 19h6M17 23h3" stroke="#f0f0f0" stroke-width="1.2" stroke-linecap="round" opacity="0.5"/>
+          <circle cx="28" cy="28" r="5" fill="#3ddc84" opacity="0.15"/>
+          <path d="M26 28l1.5 1.5L30 26" stroke="#3ddc84" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <div class="func-title">Controle de Pedidos</div>
+        <p class="func-text">Do lançamento pelo garçom até a entrega na mesa. Nenhum pedido se perde, nenhum erro passa, tudo registrado.</p>
       </div>
-      <div class="item-list fade">
-        <div class="item"><div class="dot"></div>Vendedor trava quando o cliente fala "tá caro" e dá desconto imediato para não perder</div>
-        <div class="item"><div class="dot"></div>Cada vendedor vende de um jeito diferente — ninguém segue um processo</div>
-        <div class="item"><div class="dot"></div>Os melhores resultados vêm sempre dos mesmos 1 ou 2 talentos naturais</div>
-        <div class="item"><div class="dot"></div>O lead chega qualificado e morre no "vou pensar" sem follow-up</div>
-        <div class="item"><div class="dot"></div>Você ainda precisa entrar em campo para fechar os negócios importantes</div>
-        <div class="item"><div class="dot"></div>Já fez treinamento, animou a equipe por duas semanas e voltou tudo ao normal</div>
-        <div class="item"><div class="dot"></div>Vendedor liga uma vez, não tem resposta e desiste — follow-up inexistente</div>
+      <!-- 03 -->
+      <div class="card func-card reveal reveal-delay-3">
+        <div class="func-num">03</div>
+        <svg class="func-icon" viewBox="0 0 40 40" fill="none">
+          <rect width="40" height="40" rx="20" fill="rgba(255,255,255,0.05)"/>
+          <rect x="11" y="14" width="18" height="14" rx="1" stroke="#f0f0f0" stroke-width="1.5" opacity="0.7"/>
+          <path d="M15 14v-3M20 14v-3M25 14v-3" stroke="#f0f0f0" stroke-width="1.2" stroke-linecap="round" opacity="0.4"/>
+          <path d="M15 21h10" stroke="#f0f0f0" stroke-width="1.2" stroke-linecap="round" opacity="0.4"/>
+          <path d="M15 24h6" stroke="#f0f0f0" stroke-width="1.2" stroke-linecap="round" opacity="0.3"/>
+        </svg>
+        <div class="func-title">Estoque Inteligente</div>
+        <p class="func-text">Controle de entrada e saída automático. Alerta quando está acabando. Relatório de consumo por produto.</p>
       </div>
-    </div>
-  </section>
-
-  <section class="sec">
-    <div class="wrap">
-      <div class="center fade">
-        <div class="tag">Como funciona</div>
-        <h2 class="sec-title">AS 7 ETAPAS DA<br>LINHA RETA ROTATIVA</h2>
-        <p class="sec-sub">Um fluxo de venda que transforma qualquer vendedor em profissional — do primeiro contato ao fechamento.</p>
+      <!-- 04 -->
+      <div class="card func-card reveal reveal-delay-1">
+        <div class="func-num">04</div>
+        <svg class="func-icon" viewBox="0 0 40 40" fill="none">
+          <rect width="40" height="40" rx="20" fill="rgba(255,255,255,0.05)"/>
+          <circle cx="20" cy="20" r="9" stroke="#f0f0f0" stroke-width="1.5" opacity="0.7"/>
+          <path d="M16 20h8M20 16v8" stroke="#f0f0f0" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/>
+          <path d="M13 26l-2 2M27 26l2 2" stroke="#f0f0f0" stroke-width="1.2" stroke-linecap="round" opacity="0.3"/>
+        </svg>
+        <div class="func-title">Caixa Automatizado</div>
+        <p class="func-text">Fechamento instantâneo. Separação por forma de pagamento. Relatório diário, semanal e mensal sem calcular nada.</p>
       </div>
-      <div class="lrr-flow fade">
-        <div class="lrr-step">
-          <div class="lrr-num">1</div>
-          <div class="lrr-body">
-            <h3>ABERTURA — Criamos curiosidade, não vendemos</h3>
-            <p>Pergunta instigante que desafia a crença do cliente e faz ele querer ouvir mais. O vendedor nunca começa tentando vender — começa gerando interesse genuíno.</p>
-          </div>
-        </div>
-        <div class="lrr-step">
-          <div class="lrr-num">2</div>
-          <div class="lrr-body">
-            <h3>CONEXÃO — Confiança em 2 minutos</h3>
-            <p>Espelhamento de voz e postura. Elogio específico e verificável. O cliente relaxa, baixa a guarda e começa a abrir o jogo sobre os problemas reais do negócio.</p>
-          </div>
-        </div>
-        <div class="lrr-step">
-          <div class="lrr-num">3</div>
-          <div class="lrr-body">
-            <h3>DIAGNÓSTICO — Descobrimos a necessidade real</h3>
-            <p>3 perguntas estratégicas que revelam a dor verdadeira. O cliente fala com as próprias palavras qual é o problema — e isso torna a oferta muito mais poderosa.</p>
-          </div>
-        </div>
-        <div class="lrr-step">
-          <div class="lrr-num">4</div>
-          <div class="lrr-body">
-            <h3>OFERTA — Lógica + Emoção = Valor percebido</h3>
-            <p>Grande promessa + prova + benefício emocional + 3 concordâncias estratégicas. O cliente não vê preço, vê resultado. Quando o valor está claro, o preço para de ser objeção.</p>
-          </div>
-        </div>
-        <div class="lrr-step">
-          <div class="lrr-num">5</div>
-          <div class="lrr-body">
-            <h3>FECHAMENTO TESTE — Testamos o interesse</h3>
-            <p>Pergunta direta e confortável que mede o nível de interesse sem risco de rejeição. Com base na resposta, o vendedor sabe se avança ou volta para fortalecer a oferta.</p>
-          </div>
-        </div>
-        <div class="lrr-step">
-          <div class="lrr-num">6</div>
-          <div class="lrr-body">
-            <h3>QUEBRA DE OBJEÇÃO — O "não" vira motivo de compra</h3>
-            <p>Concordamos com a objeção, transformamos o argumento e usamos ela como razão para comprar agora. "Tá caro" se torna: o custo de não mudar é muito maior.</p>
-          </div>
-        </div>
-        <div class="lrr-step">
-          <div class="lrr-num">7</div>
-          <div class="lrr-body">
-            <h3>FECHAMENTO FINAL — Assumimos a venda com elegância</h3>
-            <p>Escolha entre opção A ou B — nunca uma pergunta fechada. O cliente escolhe como avançar, nunca se recusa a responder. A venda acontece naturalmente.</p>
-          </div>
-        </div>
+      <!-- 05 -->
+      <div class="card func-card reveal reveal-delay-2">
+        <div class="func-num">05</div>
+        <svg class="func-icon" viewBox="0 0 40 40" fill="none">
+          <rect width="40" height="40" rx="20" fill="rgba(255,255,255,0.05)"/>
+          <circle cx="20" cy="16" r="5" stroke="#f0f0f0" stroke-width="1.5" opacity="0.7"/>
+          <path d="M11 30c0-4.418 4.03-7 9-7s9 2.582 9 7" stroke="#f0f0f0" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/>
+          <path d="M28 16l3-2M31 14l-3 2" stroke="#f0f0f0" stroke-width="1.2" stroke-linecap="round" opacity="0.3"/>
+        </svg>
+        <div class="func-title">Cadastro de Clientes</div>
+        <p class="func-text">Histórico de compras, dados de contato, frequência de visita. Conheça quem mais compra de você e fidelize.</p>
       </div>
-      <div class="rotate-box fade">
-        <h3>⭕ A PARTE ROTATIVA — O diferencial do método</h3>
-        <p>Se o cliente disse "não" na objeção, o vendedor não desiste. Volta para a etapa de Oferta com um novo ângulo, novos gatilhos, novos benefícios. O ciclo se repete até o fechamento ou uma recusa clara. O argumento só acaba quando o vendedor fica sem argumento — e nós treinamos para isso nunca acontecer.</p>
-      </div>
-    </div>
-  </section>
-
-  <section class="sec bg2">
-    <div class="wrap">
-      <div class="center fade">
-        <div class="tag">Resultados do método</div>
-        <h2 class="sec-title">O QUE MUDA EM 90 DIAS</h2>
-      </div>
-      <div class="benefits-grid fade">
-        <div class="benefit"><div class="benefit-num">+45%</div><div class="benefit-label">Conversão em 90 dias</div></div>
-        <div class="benefit"><div class="benefit-num">+35%</div><div class="benefit-label">Ticket médio por venda</div></div>
-        <div class="benefit"><div class="benefit-num">-80%</div><div class="benefit-label">Desconto dado pela equipe</div></div>
-        <div class="benefit"><div class="benefit-num">100%</div><div class="benefit-label">Time batendo meta com consistência</div></div>
-        <div class="benefit"><div class="benefit-num">0</div><div class="benefit-label">Dependência do dono para fechar</div></div>
-        <div class="benefit"><div class="benefit-num">3x</div><div class="benefit-label">Equipe mais confiante</div></div>
-      </div>
-    </div>
-  </section>
-
-  <section class="sec">
-    <div class="wrap">
-      <div class="center fade">
-        <div class="tag">Suas dúvidas</div>
-        <h2 class="sec-title">O QUE TODO EMPRESÁRIO<br>PERGUNTA ANTES DE DECIDIR</h2>
-      </div>
-      <div class="acc fade">
-        <div class="acc-item">
-          <button class="acc-q" onclick="tog(this)">Já fiz treinamento e não funcionou <span class="acc-arrow">+</span></button>
-          <div class="acc-a">Justamente porque você já tentou e não funcionou é que faz sentido conversar. O problema quase nunca é o conteúdo do treinamento — é o acompanhamento depois. Palestrante anima por duas semanas e some. O que a gente faz é diferente: ficamos 90 dias dentro da operação cobrando aplicação ligação por ligação. Vendedor não tem pra onde fugir do método.</div>
-        </div>
-        <div class="acc-item">
-          <button class="acc-q" onclick="tog(this)">Meu setor é muito específico <span class="acc-arrow">+</span></button>
-          <div class="acc-a">Todo dono acha que o setor dele é diferente. Mas objeção é objeção em qualquer mercado. "Tá caro", "vou pensar", "preciso falar com meu sócio" — seu vendedor escuta isso todo dia, independente do que você vende. O método resolve exatamente essas situações.</div>
-        </div>
-        <div class="acc-item">
-          <button class="acc-q" onclick="tog(this)">Meu time não vai aceitar a mudança <span class="acc-arrow">+</span></button>
-          <div class="acc-a">Time resiste a palestra. Time abraça método quando vê resultado. Nas primeiras semanas, quando o vendedor fecha uma venda que antes perderia — com mais confiança e sem dar desconto — a resistência vai embora sozinha. Resultado convence mais do que qualquer discurso.</div>
-        </div>
-        <div class="acc-item">
-          <button class="acc-q" onclick="tog(this)">E se aprenderem o método e forem embora? <span class="acc-arrow">+</span></button>
-          <div class="acc-a">E se não aprenderem e ficarem? O risco de não treinar é muito maior do que o risco de treinar. Equipe bem treinada tem mais resultado, ganha mais comissão e tem menos motivo para sair. Vendedor que bate meta não pede demissão.</div>
-        </div>
-        <div class="acc-item">
-          <button class="acc-q" onclick="tog(this)">Como garantem que vão aplicar de verdade? <span class="acc-arrow">+</span></button>
-          <div class="acc-a">Acompanhamento real por 90 dias. Gravação de ligações, role-play semanal, ajuste fino constante. O vendedor sabe que está sendo acompanhado — e isso muda o comportamento. Não é palestra de 2h e tchau.</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="sec bg2">
-    <div class="wrap">
-      <div class="center fade">
-        <div class="tag">A transformação</div>
-        <h2 class="sec-title">ANTES E DEPOIS DO MÉTODO LRR</h2>
-      </div>
-      <div class="ba-grid fade">
-        <div class="ba-card">
-          <div class="ba-title">❌ ANTES — Como está hoje</div>
-          <div class="ba-list">
-            <div class="ba-item"><span class="icon">❌</span>Venda depende de talento natural ou sorte</div>
-            <div class="ba-item"><span class="icon">❌</span>Dono ainda entra em campo para fechar o importante</div>
-            <div class="ba-item"><span class="icon">❌</span>Time batendo 50% da meta com sorte</div>
-            <div class="ba-item"><span class="icon">❌</span>Desconto em toda negociação para "salvar a venda"</div>
-            <div class="ba-item"><span class="icon">❌</span>Resultado imprevisível — mês bom, mês ruim</div>
-          </div>
-        </div>
-        <div class="ba-card after">
-          <div class="ba-title red">✅ DEPOIS — Com o Método LRR</div>
-          <div class="ba-list">
-            <div class="ba-item"><span class="icon">✅</span>Venda é processo — qualquer vendedor replica</div>
-            <div class="ba-item"><span class="icon">✅</span>Dono estratégico, fora do campo de vendas</div>
-            <div class="ba-item"><span class="icon">✅</span>Time batendo meta com consistência todo mês</div>
-            <div class="ba-item"><span class="icon">✅</span>Desconto quase zerado — valor percebido é alto</div>
-            <div class="ba-item"><span class="icon">✅</span>Previsibilidade de receita para planejar o crescimento</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <div class="cta-banner">
-    <div class="wrap">
-      <h2>TRANSFORME SEU TIME EM MÁQUINA DE VENDAS</h2>
-      <p>Agende uma consultoria gratuita e veja como o Método LRR se aplica no seu time.</p>
-      <div class="cta-btns">
-        <a class="btn btn-white" href="https://wa.me/5548991351667?text=Quero%20saber%20mais%20sobre%20o%20M%C3%A9todo%20LRR" target="_blank">AGENDAR CONSULTORIA GRATUITA</a>
+      <!-- 06 -->
+      <div class="card func-card reveal reveal-delay-3">
+        <div class="func-num">06</div>
+        <svg class="func-icon" viewBox="0 0 40 40" fill="none">
+          <rect width="40" height="40" rx="20" fill="rgba(255,255,255,0.05)"/>
+          <path d="M20 10c5.523 0 10 2.686 10 6v8c0 3.314-4.477 6-10 6s-10-2.686-10-6v-8c0-3.314 4.477-6 10-6z" stroke="#f0f0f0" stroke-width="1.5" opacity="0.7"/>
+          <path d="M10 16c0 3.314 4.477 6 10 6s10-2.686 10-6" stroke="#f0f0f0" stroke-width="1.2" opacity="0.4"/>
+          <path d="M10 20c0 3.314 4.477 6 10 6s10-2.686 10-6" stroke="#f0f0f0" stroke-width="1.2" opacity="0.3"/>
+        </svg>
+        <div class="func-title">Nuvem + Segurança</div>
+        <p class="func-text">Seus dados sincronizados em tempo real. Nada se perde se o celular cair, travar ou ser roubado.</p>
       </div>
     </div>
   </div>
+</section>
 
-  <footer>
-    <div class="wrap">
-      <div class="footer-grid">
-        <div class="footer-brand">
-          <div class="logo"><span>V4</span> CLESS</div>
-          <p>Automação com IA, estratégia de vendas e tráfego pago para donos de PME que querem crescer sem trabalhar mais.</p>
-        </div>
-        <div class="footer-col">
-          <h4>Páginas</h4>
-          <a onclick="show('home',null)">Home</a>
-          <a onclick="show('doe',null)">Automação IA</a>
-          <a onclick="show('lrr',null)">Estratégia de Vendas</a>
-          <a onclick="show('scmao',null)">Tráfego Pago</a>
-        </div>
-        <div class="footer-col">
-          <h4>Métodos</h4>
-          <a onclick="show('doe',null)">Método DOE</a>
-          <a onclick="show('lrr',null)">Método LRR</a>
-          <a onclick="show('scmao',null)">Método SCMAO</a>
-        </div>
-        <div class="footer-col">
-          <h4>Contato</h4>
-          <a href="https://wa.me/5548991351667" target="_blank">WhatsApp: +55 48 9135-1667</a>
-          <span>Respondemos em até 4h</span>
-        </div>
-      </div>
-      <div class="footer-bottom">© 2025 V4 CLESS. Todos os direitos reservados.</div>
+<!-- ===================== PROCESSO ===================== -->
+<section id="processo">
+  <div class="section-inner">
+    <div class="section-header centered reveal">
+      <div class="section-tag">O Processo</div>
+      <h2 class="section-h2">Como acontece, do zero<br>à entrega</h2>
+      <p class="section-sub">Transparência total. Você sabe exatamente o que está sendo feito — e não paga nada antes de aprovar.</p>
     </div>
-  </footer>
-</div>
 
-<!-- ═══════════════════════════════════════════
-     PAGE: TRÁFEGO PAGO — MÉTODO SCMAO
-═══════════════════════════════════════════ -->
-<div class="page" id="page-scmao">
+    <div class="steps-wrap">
+      <div class="steps-line"></div>
 
-  <section class="hero">
-    <div class="hero-grid"></div>
-    <div class="wrap hero-content">
-      <div class="hero-tag">Método SCMAO — Tráfego Pago</div>
-      <h1>SEU TELEFONE<br>NÃO TOCA DE<br><span>FORMA CONSTANTE?</span></h1>
-      <p>Você depende de indicação. Quando vem, vem. Quando para, o caixa aperta. Já pagou agência que entregou PDF bonito e zero cliente. Chega.</p>
-      <div class="btns">
-        <a class="btn btn-red" href="https://wa.me/5548991351667?text=Quero%20saber%20mais%20sobre%20o%20M%C3%A9todo%20SCMAO" target="_blank">QUERO CLIENTES TODO MÊS</a>
+      <div class="step reveal reveal-delay-1">
+        <div class="step-num-wrap">01</div>
+        <div class="step-body">
+          <div class="step-title">Conversa sem compromisso</div>
+          <p class="step-text">Você fala sobre o seu negócio, seus gargalos, o que precisaria funcionar diferente. Sem pitch de vendas — só escuta. O sistema será construído com base exatamente no que você disse.</p>
+        </div>
       </div>
-    </div>
-  </section>
 
-  <section class="sec-sm bg2">
-    <div class="wrap">
-      <div class="fade">
-        <div class="tag">Isso acontece na sua empresa?</div>
-        <h2 class="sec-title">SE VOCÊ SE RECONHECE<br>AQUI, CONTINUE LENDO:</h2>
+      <div class="step reveal reveal-delay-2">
+        <div class="step-num-wrap">02</div>
+        <div class="step-body">
+          <div class="step-title">Proposta personalizada</div>
+          <p class="step-text">No dia seguinte você recebe uma proposta visual com tudo documentado: o que será construído, o prazo e o valor. Sem surpresa depois. Só avança com o seu OK.</p>
+        </div>
       </div>
-      <div class="item-list fade">
-        <div class="item"><div class="dot"></div>Tem meses bons e meses ruins sem conseguir explicar o porquê</div>
-        <div class="item"><div class="dot"></div>Quando tentou anunciar, gastou dinheiro e não conseguiu medir se voltou em venda</div>
-        <div class="item"><div class="dot"></div>Já contratou agência que só entregava relatório com CTR, CPM e ROAS sem dizer quanto entrou de venda</div>
-        <div class="item"><div class="dot"></div>O Instagram está bonito, o site está no ar — mas o telefone não toca de forma constante</div>
-        <div class="item"><div class="dot"></div>Fica olhando o concorrente menor crescendo mais rápido e não entende como</div>
-        <div class="item"><div class="dot"></div>Toda vez que o caixa aperta, a primeira conversa difícil é em casa</div>
-      </div>
-    </div>
-  </section>
 
-  <section class="sec">
-    <div class="wrap">
-      <div class="center fade">
-        <div class="tag">Como funciona</div>
-        <h2 class="sec-title">O MÉTODO SCMAO EM 5 ETAPAS</h2>
-        <p class="sec-sub">Antes de gastar R$1 em anúncio, a gente entende o negócio. Depois faz os anúncios certos chegarem nas pessoas certas.</p>
-      </div>
-      <div class="scmao-grid fade">
-        <div class="scmao-step">
-          <div class="scmao-letter">S</div>
-          <div class="scmao-name">SITUAÇÃO</div>
-          <p class="scmao-desc">Analisamos seu negócio, produto, região e equipe antes de investir R$1. Se não fizer sentido, falamos antes.</p>
-        </div>
-        <div class="scmao-step">
-          <div class="scmao-letter">C</div>
-          <div class="scmao-name">CONHECIMENTO</div>
-          <p class="scmao-desc">Pesquisa profunda do seu cliente ideal. Dores, desejos, onde está. O Google e o Meta recebem informação precisa para encontrar as pessoas certas.</p>
-        </div>
-        <div class="scmao-step">
-          <div class="scmao-letter">M</div>
-          <div class="scmao-name">META</div>
-          <p class="scmao-desc">Definimos quanto você pode pagar por cliente novo e ainda ter lucro. Você sabe o retorno esperado antes de começar.</p>
-        </div>
-        <div class="scmao-step">
-          <div class="scmao-letter">A</div>
-          <div class="scmao-name">ANÚNCIO</div>
-          <p class="scmao-desc">Criamos campanhas com Gancho + Conteúdo + CTA. No Google, Meta e onde seu cliente estiver. Sem template genérico.</p>
-        </div>
-        <div class="scmao-step">
-          <div class="scmao-letter">O</div>
-          <div class="scmao-name">OTIMIZAÇÃO</div>
-          <p class="scmao-desc">Todo mês ajustamos o que não está funcionando. O objetivo: pagar cada vez menos por cliente cada vez melhor.</p>
+      <div class="step reveal reveal-delay-3">
+        <div class="step-num-wrap">03</div>
+        <div class="step-body">
+          <div class="step-title">Construção do seu sistema</div>
+          <p class="step-text">O sistema é desenvolvido do zero para o seu negócio. Não é um template adaptado — é criado com as funcionalidades que fazem sentido para o seu fluxo.</p>
         </div>
       </div>
-    </div>
-  </section>
 
-  <section class="sec bg2">
-    <div class="wrap">
-      <div class="center fade">
-        <div class="tag">O que você ganha</div>
-        <h2 class="sec-title">DIFERENTE DE TUDO QUE<br>VOCÊ JÁ CONTRATOU</h2>
+      <div class="step reveal reveal-delay-4">
+        <div class="step-num-wrap">04</div>
+        <div class="step-body">
+          <div class="step-title">Você testa e aprova</div>
+          <p class="step-text">Antes de qualquer pagamento, você usa o sistema, testa tudo, pede ajustes. Só quando estiver satisfeito você aprova. O risco é meu, não seu.</p>
+        </div>
       </div>
-      <div class="benefits-grid fade">
-        <div class="benefit"><div class="benefit-num">30 dias</div><div class="benefit-label">Para os primeiros clientes aparecerem</div></div>
-        <div class="benefit"><div class="benefit-num">100%</div><div class="benefit-label">Clareza de retorno antes de começar</div></div>
-        <div class="benefit"><div class="benefit-num">0</div><div class="benefit-label">Contratos longos de 12 meses</div></div>
-        <div class="benefit"><div class="benefit-num">Todo mês</div><div class="benefit-label">Relatório em português, sem termo técnico</div></div>
-        <div class="benefit"><div class="benefit-num">Real</div><div class="benefit-label">Mostramos quanto entrou, não CTR bonito</div></div>
-        <div class="benefit"><div class="benefit-num">Previsível</div><div class="benefit-label">Telefone tocando com consistência</div></div>
-      </div>
-    </div>
-  </section>
 
-  <section class="sec">
-    <div class="wrap">
-      <div class="center fade">
-        <div class="tag">Suas dúvidas</div>
-        <h2 class="sec-title">O QUE TODO EMPRESÁRIO<br>PERGUNTA ANTES DE DECIDIR</h2>
-      </div>
-      <div class="acc fade">
-        <div class="acc-item">
-          <button class="acc-q" onclick="tog(this)">Já paguei agência e não funcionou <span class="acc-arrow">+</span></button>
-          <div class="acc-a">Entendo perfeitamente — e é exatamente por isso que a gente começa com 60 dias e você decide se continua olhando o resultado, não a promessa. Quem nunca se queimou aceita qualquer coisa. Você já sabe filtrar. Mostramos o que está sendo feito, quanto está custando e quanto está voltando em venda.</div>
+      <div class="step reveal reveal-delay-5">
+        <div class="step-num-wrap">05</div>
+        <div class="step-body">
+          <div class="step-title">Entrega + Suporte contínuo</div>
+          <p class="step-text">Sistema entregue, dados na nuvem, segurança ativada. E você nunca fica sozinho — manutenção e suporte incluídos na mensalidade. Se precisar de nova função, é só pedir.</p>
         </div>
-        <div class="acc-item">
-          <button class="acc-q" onclick="tog(this)">Está muito caro <span class="acc-arrow">+</span></button>
-          <div class="acc-a">Caro em relação a quê? Se eu te trouxer 10 clientes novos esse mês, o investimento virou barato. Se não trouxer, qualquer valor é caro. A pergunta certa não é o preço — é se funciona. E isso a gente mede em 60 dias, em real, não em gráfico bonito.</div>
-        </div>
-        <div class="acc-item">
-          <button class="acc-q" onclick="tog(this)">Deixa eu pensar / preciso falar com meu sócio <span class="acc-arrow">+</span></button>
-          <div class="acc-a">Faz todo sentido envolver quem decide. Só te peço uma coisa: faz a conta de quantos clientes você perdeu esse mês porque não tinha previsibilidade de aquisição. Esse número é o custo real de continuar esperando.</div>
-        </div>
-        <div class="acc-item">
-          <button class="acc-q" onclick="tog(this)">Agora não é o momento, estou apertado de caixa <span class="acc-arrow">+</span></button>
-          <div class="acc-a">O caixa tá apertado hoje exatamente porque a venda não é previsível. Continuar do mesmo jeito vai apertar mais ou menos mês que vem? Não estou te pedindo para apostar — estou oferecendo um caminho para sair do aperto.</div>
-        </div>
-        <div class="acc-item">
-          <button class="acc-q" onclick="tog(this)">E se eu investir e não voltar nada? <span class="acc-arrow">+</span></button>
-          <div class="acc-a">O que garantimos é transparência total: você sabe o que estamos fazendo, quanto está custando e o que está retornando. Se em 60 dias não estiver fazendo sentido, encerramos sem multa. Sem contrato longo, sem fidelidade forçada.</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="sec bg2">
-    <div class="wrap">
-      <div class="center fade">
-        <div class="tag">A transformação</div>
-        <h2 class="sec-title">ANTES E DEPOIS DO MÉTODO SCMAO</h2>
-      </div>
-      <div class="ba-grid fade">
-        <div class="ba-card">
-          <div class="ba-title">❌ ANTES — Como está hoje</div>
-          <div class="ba-list">
-            <div class="ba-item"><span class="icon">❌</span>Depende de indicação — quando para, o caixa aperta</div>
-            <div class="ba-item"><span class="icon">❌</span>Mês bom, mês ruim, sem conseguir explicar o porquê</div>
-            <div class="ba-item"><span class="icon">❌</span>Agência entregando PDF bonito e zero cliente</div>
-            <div class="ba-item"><span class="icon">❌</span>Não sabe quanto cada real investido em marketing trouxe</div>
-            <div class="ba-item"><span class="icon">❌</span>Concorrente menor crescendo mais rápido</div>
-          </div>
-        </div>
-        <div class="ba-card after">
-          <div class="ba-title red">✅ DEPOIS — Com o Método SCMAO</div>
-          <div class="ba-list">
-            <div class="ba-item"><span class="icon">✅</span>Clientes novos entrando todo mês de forma previsível</div>
-            <div class="ba-item"><span class="icon">✅</span>Previsibilidade de receita para planejar o crescimento</div>
-            <div class="ba-item"><span class="icon">✅</span>Relatório mensal em português mostrando o ROI real</div>
-            <div class="ba-item"><span class="icon">✅</span>Sabe exatamente quanto cada real investido está trazendo</div>
-            <div class="ba-item"><span class="icon">✅</span>Negócio crescendo de forma consistente e previsível</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <div class="cta-banner">
-    <div class="wrap">
-      <h2>TRANSFORME SEU MARKETING EM MÁQUINA DE CLIENTES</h2>
-      <p>Agende uma análise gratuita. A gente avalia se faz sentido investir no seu negócio — antes de cobrar qualquer coisa.</p>
-      <div class="cta-btns">
-        <a class="btn btn-white" href="https://wa.me/5548991351667?text=Quero%20agendar%20uma%20an%C3%A1lise%20de%20tr%C3%A1fego%20gratuita" target="_blank">AGENDAR ANÁLISE DE TRÁFEGO</a>
       </div>
     </div>
   </div>
+</section>
 
-  <footer>
-    <div class="wrap">
-      <div class="footer-grid">
-        <div class="footer-brand">
-          <div class="logo"><span>V4</span> CLESS</div>
-          <p>Automação com IA, estratégia de vendas e tráfego pago para donos de PME que querem crescer sem trabalhar mais.</p>
+<!-- ===================== RISCO ZERO ===================== -->
+<section id="risco">
+  <div class="grid-bg"></div>
+  <div class="section-inner">
+    <div class="risco-grid">
+      <!-- Esquerda -->
+      <div>
+        <div class="reveal">
+          <div class="section-tag">Garantia Total</div>
+          <h2 class="section-h2">Você não arrisca nada.<br>Eu sim.</h2>
+          <p class="section-sub" style="max-width:100%;">A maioria dos sistemas cobra adiantado e entrega o que quer. Aqui funciona ao contrário — você aprova primeiro, paga depois.</p>
         </div>
-        <div class="footer-col">
-          <h4>Páginas</h4>
-          <a onclick="show('home',null)">Home</a>
-          <a onclick="show('doe',null)">Automação IA</a>
-          <a onclick="show('lrr',null)">Estratégia de Vendas</a>
-          <a onclick="show('scmao',null)">Tráfego Pago</a>
-        </div>
-        <div class="footer-col">
-          <h4>Métodos</h4>
-          <a onclick="show('doe',null)">Método DOE</a>
-          <a onclick="show('lrr',null)">Método LRR</a>
-          <a onclick="show('scmao',null)">Método SCMAO</a>
-        </div>
-        <div class="footer-col">
-          <h4>Contato</h4>
-          <a href="https://wa.me/5548991351667" target="_blank">WhatsApp: +55 48 9135-1667</a>
-          <span>Respondemos em até 4h</span>
+        <ul class="risco-list reveal reveal-delay-1">
+          <li class="risco-item"><span class="risco-check">✓</span><span>Nenhum centavo adiantado — pagamento só após sua aprovação</span></li>
+          <li class="risco-item"><span class="risco-check">✓</span><span>Se não gostar do que foi entregue, não deve nada</span></li>
+          <li class="risco-item"><span class="risco-check">✓</span><span>Ajustes incluídos antes da aprovação final</span></li>
+          <li class="risco-item"><span class="risco-check">✓</span><span>Mensalidade cobre manutenção, atualizações e suporte direto</span></li>
+          <li class="risco-item"><span class="risco-check">✓</span><span>Novos módulos disponíveis conforme você crescer</span></li>
+        </ul>
+      </div>
+      <!-- Direita -->
+      <div class="risco-card reveal reveal-delay-2">
+        <svg class="risco-card-icon" viewBox="0 0 60 60" fill="none">
+          <circle cx="30" cy="30" r="29" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+          <path d="M30 12C30 12 18 17 18 28v10l12 10 12-10V28C42 17 30 12 30 12z" stroke="rgba(255,255,255,0.3)" stroke-width="1.5" fill="rgba(255,255,255,0.04)"/>
+          <path d="M24 30l4 4 8-8" stroke="#3ddc84" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <div class="risco-card-title">O modelo que favorece você</div>
+        <p class="risco-card-text">Nenhum sistema pronto foi feito pensando no seu negócio. O SoftDelivery é construído do zero, ouvindo você — e só é pago quando você confirmar que está satisfeito.</p>
+        <div class="risco-divider"></div>
+        <div class="risco-stats">
+          <div>
+            <div class="risco-stat-num">R$ 0</div>
+            <div class="risco-stat-label">Pago antes de aprovar. Zero. Nem um centavo.</div>
+          </div>
+          <div>
+            <div class="risco-stat-num">100%</div>
+            <div class="risco-stat-label">Personalizado para o jeito que seu negócio já funciona.</div>
+          </div>
         </div>
       </div>
-      <div class="footer-bottom">© 2025 V4 CLESS. Todos os direitos reservados.</div>
     </div>
-  </footer>
+  </div>
+</section>
+
+<!-- ===================== CTA FINAL ===================== -->
+<section id="cta">
+  <div class="grid-bg"></div>
+  <div class="glow-center"></div>
+  <div style="position:relative; z-index:1;">
+    <div class="section-tag reveal" style="display:inline-block;">Comece agora</div>
+    <h2 class="cta-h2 reveal reveal-delay-1">Pronto para parar de<br>perder dinheiro?</h2>
+    <p class="cta-sub reveal reveal-delay-2">Deixe seu contato. Sem compromisso, sem pitch agressivo — só uma conversa sobre o seu negócio.</p>
+    <div class="cta-form reveal reveal-delay-3">
+      <input type="tel" class="cta-input" placeholder="Seu WhatsApp com DDD" id="cta-phone">
+      <button class="btn-primary" onclick="submitCTA()">QUERO MEU SISTEMA →</button>
+    </div>
+    <div class="cta-note reveal reveal-delay-4">Resposta em até 2 horas<span>·</span>Sem spam<span>·</span>Sem compromisso</div>
+  </div>
+</section>
+
+<!-- ===================== FOOTER ===================== -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="footer-logo">
+          <div class="logo-dot"></div>
+          SoftDelivery
+        </div>
+        <p class="footer-tagline">Sistema de gestão personalizado<br>para o seu negócio.</p>
+      </div>
+      <div>
+        <div class="footer-col-title">Produto</div>
+        <ul class="footer-links">
+          <li><a href="#funcionalidades">Funcionalidades</a></li>
+          <li><a href="#case">Casos Reais</a></li>
+          <li><a href="#risco">Garantia</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Processo</div>
+        <ul class="footer-links">
+          <li><a href="#processo">Como Funciona</a></li>
+          <li><a href="#processo">Etapas</a></li>
+          <li><a href="#cta">Começar</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Contato</div>
+        <ul class="footer-links">
+          <li><a href="#cta">WhatsApp</a></li>
+          <li><a href="#cta">Solicitar Demo</a></li>
+          <li><a href="#cta">Falar com Equipe</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 SoftDelivery — Todos os direitos reservados</span>
+      <span>Sistema de gestão personalizado</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ===================== MODAL ===================== -->
+<div class="modal-overlay" id="modal" role="dialog" aria-modal="true" aria-label="Contato">
+  <div class="modal" id="modal-box">
+    <button class="modal-close" id="modal-close" aria-label="Fechar">✕</button>
+    <svg class="modal-icon" viewBox="0 0 56 56" fill="none">
+      <circle cx="28" cy="28" r="27" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+      <path d="M28 10l3 11h11l-9 6 3 11-8-6-8 6 3-11-9-6h11z" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.25)" stroke-width="1"/>
+      <path d="M23 30l4 4 8-8" stroke="#3ddc84" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    <div class="modal-title">Vamos conversar sobre<br>o seu negócio</div>
+    <p class="modal-text">Me manda seu WhatsApp. Sem compromisso — só quero entender como o seu negócio funciona e mostrar o que é possível.</p>
+    <input type="tel" class="modal-input" placeholder="WhatsApp com DDD (ex: 11 99999-9999)" id="modal-phone">
+    <button class="btn-primary modal-btn" onclick="submitModal()">FALAR AGORA NO WHATSAPP →</button>
+    <button class="modal-skip" id="modal-skip">Agora não, obrigado</button>
+  </div>
 </div>
 
+<!-- ===================== JAVASCRIPT ===================== -->
 <script>
-// ─── NAVEGAÇÃO ───
-function show(id, el) {
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  document.getElementById('page-' + id).classList.add('active');
-  document.querySelectorAll('nav a, .mob-nav a').forEach(a => a.classList.remove('active'));
-  if (el) el.classList.add('active');
-  window.scrollTo({top: 0, behavior: 'smooth'});
-  observeFades();
+// ---- SCROLL REVEAL ----
+(function() {
+  var els = document.querySelectorAll('.reveal');
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+  els.forEach(function(el) { observer.observe(el); });
+})();
+
+// ---- NAV SCROLL ----
+(function() {
+  var nav = document.getElementById('navbar');
+  window.addEventListener('scroll', function() {
+    if (window.scrollY > 30) nav.classList.add('scrolled');
+    else nav.classList.remove('scrolled');
+  }, { passive: true });
+})();
+
+// ---- MODAL ----
+var modal = document.getElementById('modal');
+var modalBox = document.getElementById('modal-box');
+
+function openModal() {
+  modal.classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+function closeModal() {
+  modal.classList.remove('active');
+  document.body.style.overflow = '';
 }
 
-// ─── MENU MOBILE ───
-function toggleMob() {
-  document.getElementById('mob').classList.toggle('open');
-  document.getElementById('ham').classList.toggle('open');
-}
-function closeMob() {
-  document.getElementById('mob').classList.remove('open');
-  document.getElementById('ham').classList.remove('open');
-}
+document.querySelectorAll('.open-modal').forEach(function(btn) {
+  btn.addEventListener('click', openModal);
+});
+document.getElementById('modal-close').addEventListener('click', closeModal);
+document.getElementById('modal-skip').addEventListener('click', closeModal);
+modal.addEventListener('click', function(e) {
+  if (!modalBox.contains(e.target)) closeModal();
+});
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') closeModal();
+});
 
-// ─── ACCORDION ───
-function tog(btn) {
-  const isOpen = btn.classList.contains('open');
-  const parent = btn.closest('.acc');
-  parent.querySelectorAll('.acc-q').forEach(b => {
-    b.classList.remove('open');
-    b.nextElementSibling.classList.remove('open');
-  });
-  if (!isOpen) {
-    btn.classList.add('open');
-    btn.nextElementSibling.classList.add('open');
+// ---- FORM SUBMIT (MODAL) ----
+function submitModal() {
+  var phone = document.getElementById('modal-phone').value.trim();
+  if (!phone) {
+    document.getElementById('modal-phone').focus();
+    document.getElementById('modal-phone').style.borderColor = 'rgba(248,113,113,0.5)';
+    setTimeout(function() {
+      document.getElementById('modal-phone').style.borderColor = '';
+    }, 1500);
+    return;
   }
+  var clean = phone.replace(/\D/g, '');
+  var msg = encodeURIComponent('Olá! Vi o SoftDelivery e quero saber mais sobre o sistema personalizado para o meu negócio. Meu WhatsApp: ' + phone);
+  window.open('https://wa.me/5500000000000?text=' + msg, '_blank');
+  closeModal();
 }
 
-// ─── FADE IN ───
-function observeFades() {
-  const els = document.querySelectorAll('.page.active .fade');
-  const obs = new IntersectionObserver((entries) => {
-    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-  }, {threshold: 0.1});
-  els.forEach(el => obs.observe(el));
+// ---- FORM SUBMIT (CTA) ----
+function submitCTA() {
+  var phone = document.getElementById('cta-phone').value.trim();
+  if (!phone) {
+    document.getElementById('cta-phone').focus();
+    document.getElementById('cta-phone').style.borderColor = 'rgba(248,113,113,0.5)';
+    setTimeout(function() {
+      document.getElementById('cta-phone').style.borderColor = '';
+    }, 1500);
+    return;
+  }
+  var msg = encodeURIComponent('Olá! Vi o SoftDelivery e quero saber mais sobre o sistema personalizado para o meu negócio. Meu WhatsApp: ' + phone);
+  window.open('https://wa.me/5500000000000?text=' + msg, '_blank');
 }
-document.addEventListener('DOMContentLoaded', observeFades);
+
+// ---- ENTER KEY ON INPUTS ----
+document.getElementById('cta-phone').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') submitCTA();
+});
+document.getElementById('modal-phone').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') submitModal();
+});
 </script>
+
 </body>
 </html>
